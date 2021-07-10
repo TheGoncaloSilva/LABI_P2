@@ -4,7 +4,7 @@ from os import pipe
 import wave
 import sys
 import pyaudio
-from struct import pack, unpack, unpack_from, error
+import struct
 import os.path
 
 dic = {
@@ -78,7 +78,7 @@ def createSong(dictionary):
         w.close()
         print(w.getnframes())
         print("%dh" % w.getnframes())
-        data = unpack("%dh" % w.getnframes(), raw_data) # "B" para ficheiros 8bits
+        data = struct.unpack("%dh" % w.getnframes(), raw_data) # "B" para ficheiros 8bits
         for value in enumerate(data):
             outputAudio.append(value)
         
@@ -88,7 +88,7 @@ def createSong(dictionary):
     wvData = b""
 
     for v in outputAudio :
-        wvData += pack("h", int(v))
+        wvData += struct.pack("h", int(v))
 
     output = wave.open(outFile, 'wb')
     output.setnchannels(1)
