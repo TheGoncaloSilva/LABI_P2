@@ -15,7 +15,7 @@ dic = {
     0: "fadein", 11: "fadeout"
 },
 	"music": [
-		[0], [], [], [0], [1], [], [0], [], [2], [0], [], [2, 4]
+		[0, 2, 3], [], [], [0], [1], [], [0], [], [2], [0], [], [2, 3]
 	]
 }
 
@@ -76,28 +76,69 @@ def calculateFramerate(bpm) :
     # return bpm * 0.0166666666666667 / 1
     return bpm * 44100 / 60
 
+# @argumentos ->
+# @return -> música com o efeito de Fade In
+def fadeInSong(song, sample_rate, duration) : 
+    #time_start = 0
+    #time_stop = duration * sample_rate
+    #step = 1.0 / (sample_rate * duration)
+    #for sample in enumerate(song):
+    #    ...
+    return True
+
+# @argumentos ->
+# @return -> música com o efeito de Fade out
+def fadeOutSong(file, sample_rate, duration) :
+
+    return True
+
 # @argumentos -> dicionário com informação da música a ser criada
 # @return -> lista com pos 0 True ou False, se a música for criada ou não
 #         -> pos 1, informação de sucesso e erro, caso algum exista
 #         -> i.e [True, "Song generated"] ou [False, "The provided path doesn't exists"]
 def createSong(dictionary):
     # dictionary["samples"][i] access each sample
-    data= []
-    for sample in dictionary["samples"] :
+    for sample in dictionary["samples"] : # certificar que todas as samples existem
         status = checkSong(sample)
-        # print(str(sample)) DEBUG
-        # print(readSong(sample)) DEBUG
-        if(not status[0]):
-            return [status[0], status[1]]
+        if(not status[0]): # verificar que não houve um erro
+            return [status[0], status[1]] # se houver um erro, devolver
+    
+    for music in dictionary["music"] : # verificar a lista das musicas com as samples fornecidas
+        for pos in music :
+            if pos >= len(dictionary["samples"]) :
+                return [False, "Music indexes and samples provided do not match"]
 
-        w = wave.open(sample, 'rb')
-        data.append( [w.getparams(), w.readframes(w.getnframes())] )
-        w.close()
-
-    
-    
-    
-    
+    data= []
+    for music in dictionary["music"] :
+        if len(music) == 1 :
+            sample = dictionary["samples"][music[0]]
+            w = wave.open(sample, 'rb')
+            data.append( [w.getparams(), w.readframes(w.getnframes())] )
+            w.close()
+        elif len(music) > 1 :
+            #initialize variable
+            overlay = b''
+            for pos in music :
+                sample = dictionary["samples"][pos]
+                # overlay the samples
+                # or just use the overlay functions on pydub
+                w = wave.open(sample, 'rb')
+                params = w.getparams()
+                overlay += w.readframes(w.getnframes())
+            data.append([params, overlay])
+        else :
+            print("nothing")
+            # add blank sound
+        
+    # efeitos
+    # for smtg in efeitos
+    # smtg choice
+    for effects in dictionary["effects"] :
+        # print(dictionary["effects"][effects]) Alternative
+        if effects == 0 : # efeito de Fade In
+            fadeInSong(data, 1, 2)
+        elif effects == 11: # efeito de Fade Out
+            fadeOutSong(data, 1, 2)
     
     
     # sample files are saved in dictionary["samples"]
