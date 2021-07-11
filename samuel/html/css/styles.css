@@ -178,9 +178,9 @@ a:hover {
 .btn-solid-lg {
 	display: inline-block;
 	padding: 1.625rem 2.625rem 1.625rem 2.625rem;
-	border: 1px solid #c2337b;
+	border: 1px solid #FF1493;
 	border-radius: 32px;
-	background-color: #c2337b;
+	background-color: #FF1493;
 	color: #ffffff;
 	font-weight: 600;
 	font-size: 0.875rem;
@@ -442,7 +442,9 @@ input[type='checkbox'] {
 }
 
 .navbar .logo-text {
-	color: #ffffff;
+	background: -webkit-linear-gradient(180deg, #00FA9A, #00ffff);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 	font-weight: 700;
 	font-size: 1.875rem;
 	line-height: 1rem;
@@ -487,7 +489,7 @@ input[type='checkbox'] {
 .navbar .nav-item.dropdown.show .nav-link,
 .navbar .nav-item .nav-link:hover,
 .navbar .nav-item .nav-link.active {
-	color: #ff67b3;
+	color: #FF1493;
 }
 
 /* Dropdown Menu */
@@ -572,9 +574,10 @@ input[type='checkbox'] {
 /*****************/
 .header {
 	padding-top: 7rem;
-	background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../images/header-background.jpg') center center no-repeat;
+	background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../images/headphones.jpg') center center no-repeat;
 	background-size: cover;
 	text-align: center;
+	/*foto de overlay tá aqui!!!!*/
 }
 
 .header .image-container {
@@ -587,7 +590,7 @@ input[type='checkbox'] {
 
 .header h3 {
 	margin-bottom: 2rem;
-	color: #ffffff;
+	color: #00ffff;
 }
 
 .header .btn-solid-lg:hover {
