@@ -17,7 +17,8 @@ dic = {
     0: "fadein", 11: "fadeout"
 },
 	"music": [
-		[0, 2, 3], [], [], [0], [1], [], [0], [], [2], [0], [], [2, 3]
+		#[0, 2, 3], [], [], [0], [1], [], [0], [], [2], [0], [], [2, 3]
+        [], [], [], [], [1], [], [], [], [], [], [], []
 	]
 }
 
@@ -92,7 +93,7 @@ def fadeInSong(song, sample_rate, duration) :
     for index, value in enumerate(song):
         time = index
         if time > time_start and time < time_stop :
-            new_song.append(value * index * step)
+            new_song.append(value * index * int(step)) # dava erro sem o int
         else :
             new_song.append(value)
 
