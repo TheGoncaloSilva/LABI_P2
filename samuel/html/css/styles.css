@@ -48,7 +48,9 @@ body, p {
 }
 
 h1 {
-	color: #00FFFF;
+	background: -webkit-linear-gradient(180deg, #00FA9A, #00ffff);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 	font-weight: 700;
 	font-size: 2.5rem;
 	line-height: 3.25rem;
@@ -442,21 +444,20 @@ input[type='checkbox'] {
 }
 
 .navbar .logo-text {
-	background: -webkit-linear-gradient(180deg, #00FA9A, #00ffff);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
 	font-weight: 700;
 	font-size: 1.475rem;
 	line-height: 1rem;
 	text-decoration: none;
 }
 
-.navbar .logo-text-sec { /* logo pt 2*/
+.logo-text-sec { /* logo pt 2*/
 	font-weight: 700;
 	font-size: 1.475rem;
 	line-height: 1rem;
 	text-decoration: none;
-	color: #ffffff;
+	background: -webkit-linear-gradient(180deg, #00FA9A, #00ffff);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
 
 .offcanvas-collapse {
@@ -637,6 +638,12 @@ input[type='checkbox'] {
 	color: #ffffff;
 }
 
+.sec-header {
+	padding-top: 7rem;
+	background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../images/headphones.jpg') center center no-repeat;
+	background-size: cover;
+	text-align: center;
+}
 
 /*********************/
 /*     Details 1     */
@@ -1037,8 +1044,7 @@ input[type='checkbox'] {
 /*     Footer     */
 /******************/
 .footer {
-	padding-top: 6.5rem;
-	padding-bottom: 2rem;
+	padding-top: 5rem;
 	background-color: #000000;
 }
 
@@ -1498,10 +1504,39 @@ a:hover.back-to-top {
 		margin-right: 3.5rem;
 		margin-left: 3.5rem;
 	}
+	
+	.sec-header {
+		position: relative;
+		padding-top: 15.5rem;
+		padding-bottom: 10rem;
+	}
 	/* end of header */
 
 
 	/* Details 1 */
+	.audio{
+		bottom: 0;
+		right: 0;
+		width: 65%;
+		position: absolute;
+		margin-left: 3rem;
+		margin-right: 3rem;
+	}
+	.audio audio{
+		width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+		
+		outline: none;
+	}
+	
+	.author {
+		position: absolute;
+		top: 6rem;
+		left: 20.5rem;
+
+	}
+	
 	.basic-1 {
 		padding-top: 18rem;
 		padding-bottom: 12.5rem;
@@ -1515,6 +1550,37 @@ a:hover.back-to-top {
 
 	.basic-1 .image-container {
 		margin-left: 1.5rem;
+	}
+	
+	.give-like {
+		position: absolute;
+		top: 6rem;
+		right: 5rem;
+		color: #FF1493;
+	}
+	
+	.music-box {
+		position: relative;
+		height: 12rem;
+		width: 100%;
+		background: linear-gradient(180deg, #303030, #00FFFF);
+		border-radius: 1rem;
+		box-shadow: 0 .5rem 1rem #000000;
+		overflow: hidden;
+		margin: 2rem;
+		display: flex;
+		align-items: center;
+		flex-flow: row nowrap;
+	}
+	
+	.music-box .music-img{
+		height: 100%;
+		width: 28.5%;
+	}
+	
+	.music-box .music-img img{
+		height: 100%;
+		width: 100%;
 	}
 	/* end of details 1 */
 

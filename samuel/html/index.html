@@ -18,7 +18,7 @@
 	<meta name="twitter:card" content="summary_large_image"> <!-- to have large image post format in Twitter -->
 
     <!-- Webpage Title -->
-    <title>Spify Webpage Title</title>
+    <title>SongGen</title>
     
     <!-- Styles -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -43,7 +43,7 @@
 
             <!-- Text 
             Logo - Use this if you don't have a graphic logo -->
-             <a class="navbar-brand logo-text page-scroll" href="index.html">Song<small id="genNav" style="color: #ffffff">Gen</small></a>
+             <a class="navbar-brand logo-text page-scroll" href="index.html">Song<small id="genNav" class="logo-text-sec">Gen</small></a>
 
             <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
                 <span class="navbar-toggler-icon"></span>
@@ -52,30 +52,15 @@
             <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link page-scroll" href="#header">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link page-scroll" href="index.html">Top Songs</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link page-scroll" href="#details">Details</a>
+                        <a class="dropdown-item page-scroll" href="article.html">Article Details</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link page-scroll" href="#strengths">Strengths</a>
+                        <a class="nav-link page-scroll" href="privacy.html">Strengths</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link page-scroll" href="#about">About</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Drop</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown01">
-                            <a class="dropdown-item page-scroll" href="article.html">Article Details</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item page-scroll" href="terms.html">Terms Conditions</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item page-scroll" href="privacy.html">Privacy Policy</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link page-scroll" href="#contact">Contact</a>
-                    </li>
+                  
                 </ul>
                 
             </div> <!-- end of navbar-collapse -->
@@ -156,35 +141,26 @@
                 <div class="col-lg-12 text-center">
 					<h1>TOP SONGS</h1>
                 </div>
+                <div class="music-box"> <!-- music and stuff-->
+					<div class="music-img">
+						<img src="images/about.jpg">
+					</div>
+					<div class="audio">
+						<audio src="" controls></audio>
+					</div>
+					<div class="author">
+						<p style="color: #000000;">eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee</p>
+					</div>
+					<div class="give-like">
+						<i class="far fa-thumbs-up fa-2x"></i>
+					</div>
+                </div><!--end of music and stuff-->
             </div> <!-- end of row -->
         </div> <!-- end of container -->
     </div> <!-- end of basic-1 -->
     </div>
     <!-- end of details 1 -->
-
-
-    <!-- Details 2 -->
-    <div class="basic-2">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="image-area">
-                    <div class="image-container">
-                        <img class="img-fluid" src="images/details-2.jpg" alt="alternative">
-                    </div> <!-- end of image-container -->
-                </div> <!-- end of image-area -->
-                <div class="text-area">
-                    <div class="text-container">
-                        <h2>Design & development</h2>
-                        <hr class="hr-heading">
-                        <p>Our team of competent designers and developers are able to create beautiful designs and structured code that will serve your ecommerce project to establish your market position and increase revenues</p>
-                        <a class="btn-solid-reg popup-with-move-anim" href="#details-lightbox">Lightbox</a>
-                    </div> <!-- end of text-container -->
-                </div> <!-- end of text-area -->
-            </div> <!-- end of row -->
-        </div> <!-- end of container-fluid -->
-    </div> <!-- end of basic-1 -->
-    <!-- end of details 2 -->
-
+   
 
     <!-- Details Lightbox -->
     <!-- Lightbox -->
@@ -459,43 +435,22 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="footer-col first">
-                        <h6>About Spify</h6>
-                        <p class="p-small">Spify is a business website Bootstrap HTML template designed to present startups in a beautiful manner with features for description</p>
+                        <h6>Sobre esta plataforma</h6>
+                        <p class="p-small">Plataforma criada no âmbito da disciplina de Laboratórios de Informática(LABI)</p>
                     </div> <!-- end of footer-col -->
                     <div class="footer-col second">
-                        <h6>Links</h6>
+                        <h6>Navegua rapidamente</h6>
                         <ul class="list-unstyled li-space-lg p-small">
-                            <li>Important: <a href="terms.html">Terms & Conditions</a>, <a href="privacy.html">Privacy Policy</a></li>
-                            <li>Useful: <a href="#">Colorpicker</a>, <a href="#">Icon Library</a>, <a href="#">Illustrations</a></li>
-                            <li>Menu: <a class="page-scroll" href="#header">Home</a>, <a class="page-scroll" href="#details">Details</a>, <a class="page-scroll" href="#strengths">Strengths</a>, <a class="page-scroll" href="#contact">Contact</a></li>
+							<li>Ouvir música: <a class="page-scroll" href="index.html"><strong>Top Songs</strong></a></li>
+                            <li>Cria a tua própria batida: <a href="privacy.html"><strong>DIY</strong></a></li>
+                            <li>Exporta excertos: <a href="article.html"><strong>Exporter</strong></a></li>
                         </ul>
                     </div> <!-- end of footer-col -->
                     <div class="footer-col third">
-                        <span class="fa-stack">
-                            <a href="#your-link">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-facebook-f fa-stack-1x"></i>
-                            </a>
-                        </span>
-                        <span class="fa-stack">
-                            <a href="#your-link">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-twitter fa-stack-1x"></i>
-                            </a>
-                        </span>
-                        <span class="fa-stack">
-                            <a href="#your-link">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-pinterest-p fa-stack-1x"></i>
-                            </a>
-                        </span>
-                        <span class="fa-stack">
-                            <a href="#your-link">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-instagram fa-stack-1x"></i>
-                            </a>
-                        </span>
-                        <p class="p-small">We would love to hear from you <a href="mailto:contact@site.com"><strong>contact@site.com</strong></a></p>
+                        
+                        <p class="p-small">Contacte-nos: <a href="https://www.outlook.com"><strong>goncalol@ua.pt </strong></a> <a href="https://www.outlook.com"><strong>pompeu</strong></a>
+							<a href="https://www.outlook.com"><strong>hugo </strong></a> <a href="https://www.outlook.com"><strong>steixeira@ua.pt</strong></a></p>
+                        
                     </div> <!-- end of footer-col -->
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
@@ -509,7 +464,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <p class="p-small">Copyright © <a href="#your-link">Your name</a></p>
+                    <p class="p-small">Copyright © <a href="#your-link">SongGen</a></p>
                 </div> <!-- end of col -->
             </div> <!-- enf of row -->
         </div> <!-- end of container -->
