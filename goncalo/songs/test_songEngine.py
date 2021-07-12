@@ -8,6 +8,8 @@ import songEngine
 
 dic = {
     "bpm": 61,
+    "volume" : 5,
+    "mask" : 'none',
     "samples": ["./sounds/arcade-retro-game-over.wav", "./sounds/crickets-and-insects-in-the-wild.wav", "./sounds/dog-barking-twice.wav", "./sounds/fast-rocket-whoosh_2.wav"],
     "effects": {
     0: "fadein", 11: "fadeout"
@@ -18,6 +20,8 @@ dic = {
 }
 badDic = {
     "bpm": 61,
+    "volume" : 5,
+    "mask" : 'none',
     "samples": ["./sounds/going-to-fail", "./sounds/crickets-and-insects-in-the-wild.wav", "./sounds/dog-barking-twice.wav", "./sounds/fast-rocket-whoosh_2.wav"],
     "effects": {
     0: "fadein", 11: "fadeout"

@@ -1,0 +1,178 @@
+\documentclass{report}
+\usepackage[T1]{fontenc} % Fontes T1
+\usepackage[utf8]{inputenc} % Input UTF8
+\usepackage[backend=biber, style=ieee]{biblatex} % para usar bibliografia
+\usepackage{csquotes}
+\usepackage[portuguese]{babel} %Usar língua portuguesa
+\usepackage{blindtext} % Gerar texto automaticamente
+\usepackage[printonlyused]{acronym}
+\usepackage{hyperref} % para autoref
+\usepackage{graphicx}
+
+\bibliography{bibliografia}
+
+
+\begin{document}
+%%
+% Definições
+%
+\def\titulo{PROJETO 2}
+\def\data{14/07/2021}
+\def\autores{Gonçalo Silva, Samuel Teixeira, Pompeu Costa, Hugo Hadden}
+\def\autorescontactos{(103244) goncalolsilva@ua.pt, (103325) autor2@ua.pt,
+(103294) pompeu@,(98449) hugo@ua.pt}
+\def\versao{VERSAO FINAL}
+\def\departamento{Departamento de Eletrónica, Telecomunicações e
+Informática}
+\def\empresa{Universidade de Aveiro}
+\def\logotipo{ua.pdf}
+%
+%%%%%% CAPA %%%%%%
+%
+\renewcommand{\contentsname}{Índice}
+\begin{titlepage}
+
+\begin{center}
+%
+\vspace*{50mm}
+%
+{\Huge \titulo}\\ 
+%
+\vspace{10mm}
+%
+{\Large \empresa}\\
+%
+\vspace{10mm}
+%
+{\LARGE \autores}\\ 
+%
+\vspace{30mm}
+%
+\begin{figure}[h]
+\center
+\includegraphics{\logotipo}
+\end{figure}
+%
+\vspace{30mm}
+\end{center}
+%
+\begin{flushright}
+\versao
+\end{flushright}
+\end{titlepage}
+
+%%  Página de Título %%
+\title{%
+{\Huge\textbf{\titulo}}\\
+{\Large \departamento\\ \empresa}
+}
+%
+\author{%
+    \autores \\
+    \autorescontactos
+}
+%
+\date{\data}
+%
+\maketitle
+
+\pagenumbering{roman}
+
+%%%%%% RESUMO %%%%%%
+\begin{abstract}
+Este projeto foi realizado no âmbito da cadeira \ac{labi} do 1º ano do \ac{miect}. Consiste na criação de um sistema que permita criar músicas através da composição de pedaços/ excertos de música. Para além disso, também tivemos que fazer
+este mesmo relatório em que nós explicamos o projeto: objetivo, motivação, a
+metodologia utilizada, resultados, análise e conclusões... 
+ESCREVER O RESTO DO RESUMO!!!!!!!!!!!!!!!!!!
+\end{abstract}
+
+%%%%%% Agradecimentos %%%%%%
+% Segundo glisc deveria aparecer após conclusão...
+\renewcommand{\abstractname}{Agradecimentos}
+\begin{abstract}
+Queremos agradecer a todos os professores da cadeira de \ac{labi} por nos terem
+dado um trabalho interessante, que nos ajudou a compreender os conceitos
+lecionados nas aulas.
+\end{abstract}
+
+
+\tableofcontents
+% \listoftables     % descomentar se necessário
+% \listoffigures    % descomentar se necessário
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\pagenumbering{arabic}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Introdução}
+\label{chap.introducao}
+
+Introduz o tema, apresenta a motivação e finalmente a estrutura.
+
+Este documento está dividido em quatro capítulos.
+Depois desta introdução,
+no \autoref{chap.metodologia} é apresentada a metodologia seguida,
+no \autoref{chap.resultados} são apresentados os resultados obtidos,
+sendo estes discutidos no \autoref{chap.analise}.
+Finalmente, no \autoref{chap.conclusao} são apresentadas
+as conclusões do trabalho.
+
+\chapter{Metodologia}
+\label{chap.metodologia}
+Descreve os métodos utilizados para obtenção de resultados.
+
+Neste esqueleto de relatório aproveitamos este capítulo para exemplificar
+como se usam alguns elementos de {\LaTeX}.
+
+\section{Exemplos}
+
+\subsection{Utilização de acrónimos}
+\label{sec.util}
+Esta é a primeira invocação do acrónimo \ac{ua}.
+E esta é a segunda: \ac{ua}.
+
+
+Outras duas referências a \ac{miect}
+e \ac{miect}.
+
+\subsection{Referências bibliográficas}
+Informação relativa à estrutura formal de um relatório pode ser obtida
+na página do \ac{glisc}\cite{glisc}.
+
+Como foi apresentado na \autoref{sec.util}...
+
+\chapter{Resultados}
+\label{chap.resultados}
+Descreve os resultados obtidos.
+
+\chapter{Análise}
+\label{chap.analise}
+Analisa os resultados.
+
+\chapter{Conclusões}
+\label{chap.conclusao}
+Apresenta conclusões.
+
+\chapter*{Contribuições dos autores}
+Resumir aqui o que cada autor fez no trabalho.
+Usar abreviaturas para identificar os autores,
+por exemplo AS para António Silva.
+No fim indicar a percentagem de contribuição de cada autor.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{Acrónimos}
+\begin{acronym}
+\acro{ua}[UA]{Universidade de Aveiro}
+\acro{miect}[MIECT]{Mestrado Integrado em Engenharia de Computadores e Telemática}
+\acro{lei}[LEI]{Licenciatura em Engenharia Informática}
+\acro{labi}[LABI]{Laboratórios de Informática}
+\acro{glisc}[GLISC]{Grey Literature International Steering Committee}
+\end{acronym}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\printbibliography
+
+\end{document}

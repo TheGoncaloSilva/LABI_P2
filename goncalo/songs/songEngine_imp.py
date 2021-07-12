@@ -8,7 +8,6 @@ import struct
 import os.path
 import math
 import random
-#from pydub import AudioSegment # sudo apt-get install python3-pydub
 
 dic = {
     "bpm": 61,
