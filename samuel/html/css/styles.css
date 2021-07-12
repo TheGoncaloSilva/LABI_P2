@@ -446,9 +446,17 @@ input[type='checkbox'] {
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	font-weight: 700;
-	font-size: 1.875rem;
+	font-size: 1.475rem;
 	line-height: 1rem;
 	text-decoration: none;
+}
+
+.navbar .logo-text-sec { /* logo pt 2*/
+	font-weight: 700;
+	font-size: 1.475rem;
+	line-height: 1rem;
+	text-decoration: none;
+	color: #ffffff;
 }
 
 .offcanvas-collapse {
