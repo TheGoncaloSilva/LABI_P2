@@ -224,7 +224,7 @@ def createSong(dictionary):
         for pos in music :
             if pos >= len(dictionary["samples"]) :
                 return [False, "Music indexes and samples provided do not match"]
-
+                
     data= []
     for music in dictionary["music"] :
         if len(music) == 1 :
@@ -251,8 +251,7 @@ def createSong(dictionary):
     for effects in dictionary["effects"] :
         # print(dictionary["effects"][effects]) Alternative
         if effects == 0 : # efeito de Fade In
-            #fadeInSong(data, calculateFramerate(dictionary["bpm"]), 2)
-            print("hello")
+            data = fadeInSong(data, calculateFramerate(dictionary["bpm"]), 2)
         elif effects == 1 : # reverter a música
             reverseSong(data)
         elif effects == 2 : # ajustar o volume da música
@@ -266,11 +265,10 @@ def createSong(dictionary):
         elif effects == 6 : # Introduzir um delay à música
             delaySong(data, calculateFramerate(dictionary["bpm"]), 5, 2) # choose new values !!!!!!!!
         elif effects == 11 : # efeito de Fade Out
-            #fadeOutSong(data, calculateFramerate(dictionary["bpm"]), 2)
-            print("hello")
+            data = fadeOutSong(data, calculateFramerate(dictionary["bpm"]), 2)
 
     
-    print("In")
+    
     # sample files are saved in dictionary["samples"]
     outFile = "newsong.wav" # song that is created
 

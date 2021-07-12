@@ -113,7 +113,7 @@ def fadeOutSong(song, sample_rate, duration) :
     for index2, value in enumerate(song) :
         time = index2
         if(time > time_start and time < time_stop) :
-            new_song.append(value*(index-index2)*step)
+            new_song.append(value * (index - index2) * step)
         else :
             new_song.append(value)
 
@@ -264,7 +264,7 @@ def createSong(dictionary):
             modulateSong(data, calculateFramerate(dictionary["bpm"]), 441) # choose new FREQ !!!!!!
         elif effects == 6 : # Introduzir um delay à música
             delaySong(data, calculateFramerate(dictionary["bpm"]), 5, 2) # choose new values !!!!!!!!
-        elif effects == 11 : # efeito de Fade Out
+        elif effects == 211 : # efeito de Fade Out
             data = fadeOutSong(data, calculateFramerate(dictionary["bpm"]), 2)
 
     

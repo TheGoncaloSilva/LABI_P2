@@ -112,7 +112,7 @@
     <!-- Basic -->
     <div class="ex-basic-1 pt-5 pb-5">
         <div class="container">
-            <form action="privacy.html" method="GET">
+            <form method="GET">
                 <div class="row">
                     <div class="col-lg-14 table-responsive"> <!-- máquina-->
                         <table class="table table-borderless">
@@ -181,12 +181,65 @@
                                     </select>
                                 </td>
                             </tr>
+                            <tr>
+                                <th scope="row" id="select-left">
+                                    <select class="form-select form-select-sm genSelect">
+                                        <option class="genOption" selected>Selecionar</option>
+                                        <option class="genOption" value="1">Batatas</option>
+                                        <option class="genOption" value="2">Tomates</option>
+                                        <option class="genOption" value="3">Cebolas</option>
+                                    </select>
+                                </th>
+                                <td id = "tablecell"> <!-- 25 opções totais -->
+                                    <input style="margin: 0px;" type="checkbox" class="checkSong">
+                                    <input style="margin: 0px;" type="checkbox" class="checkSong">
+                                    <input style="margin: 0px;" type="checkbox" class="checkSong">
+                                    <input style="margin: 0px;" type="checkbox" class="checkSong">
+                                    <input style="margin: 0px;" type="checkbox" class="checkSong">
+                                </td>
+                                <td id = "tablecell">
+                                    <input style="margin: 0px;" type="checkbox" class="checkSong">
+                                    <input style="margin: 0px;" type="checkbox" class="checkSong">
+                                    <input style="margin: 0px;" type="checkbox" class="checkSong">
+                                    <input style="margin: 0px;" type="checkbox" class="checkSong">
+                                    <input style="margin: 0px;" type="checkbox" class="checkSong">
+                                </td>
+                                <td id = "tablecell">
+                                    <input style="margin: 0px;" type="checkbox" class="checkSong">
+                                    <input style="margin: 0px;" type="checkbox" class="checkSong">
+                                    <input style="margin: 0px;" type="checkbox" class="checkSong">
+                                    <input style="margin: 0px;" type="checkbox" class="checkSong">
+                                    <input style="margin: 0px;" type="checkbox" class="checkSong">
+                                </td>
+                                <td id = "tablecell">
+                                    <input style="margin: 0px;" type="checkbox" class="checkSong">
+                                    <input style="margin: 0px;" type="checkbox" class="checkSong">
+                                    <input style="margin: 0px;" type="checkbox" class="checkSong">
+                                    <input style="margin: 0px;" type="checkbox" class="checkSong">
+                                    <input style="margin: 0px;" type="checkbox" class="checkSong">
+                                </td>
+                                <td id = "tablecell">
+                                    <input style="margin: 0px;" type="checkbox" class="checkSong">
+                                    <input style="margin: 0px;" type="checkbox" class="checkSong">
+                                    <input style="margin: 0px;" type="checkbox" class="checkSong">
+                                    <input style="margin: 0px;" type="checkbox" class="checkSong">
+                                    <input style="margin: 0px;" type="checkbox" class="checkSong">
+                                </td>
+                                <td id="select-right">
+                                    <select class="form-select form-select-sm genSelect" aria-label=".form-select-sm example">
+                                        <option class="genOption" selected>Selecionar</option>
+                                        <option class="genOption" value="1">Vinho</option>
+                                        <option class="genOption" value="2">Vinagre</option>
+                                        <option class="genOption" value="3">Azeite</option>
+                                    </select>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div><!-- Fim dos efeitos-->
                 </div> <!-- end of row -->
                 <div class="row border-top">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <h3>Volume: <small style="color: white;" id="rangeValue">5</small></h3>
                         <input required class="slider" type="range" min="0" max="10" value="5" oninput="rangeValue.innerText = this.value">
                     </div>
@@ -198,9 +251,18 @@
                         <h3>Nome da criação: </h3>
                         <input required type="text" id="Nome" placeholder="Insira o nome da música" maxlength="25" class="cus-form">
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <h3>Autor: </h3>
                         <input required type="text" id="Autor" placeholder="Insira o Autor" maxlength="20" class="cus-form">
+                    </div>
+                    <div class="col-md-2">
+                        <h3>Máscara: </h3>
+                        <select class="form-select form-select-sm genSelect" aria-label=".form-select-sm example">
+                            <option class="genOption" value="none" selected>Nenhuma</option>
+                            <option class="genOption" value="silence">Silêncio</option>
+                            <option class="genOption" value="noise">barulhento</option>
+                            <option class="genOption" value="tone">tonificado</option>
+                        </select>
                     </div>
                 </div>
                 <div class="row">
