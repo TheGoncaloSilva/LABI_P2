@@ -18,7 +18,7 @@ dic = {
 },
 	"music": [
 		#[0, 2, 3], [], [], [0], [1], [], [0], [], [2], [0], [], [2, 3]
-        [], [], [], [], [1], [], [], [], [], [], [], []
+        [0], [], [], [0], [1], [], [0], [], [2], [0], [], [2, 4]
 	]
 }
 
@@ -251,7 +251,8 @@ def createSong(dictionary):
     for effects in dictionary["effects"] :
         # print(dictionary["effects"][effects]) Alternative
         if effects == 0 : # efeito de Fade In
-            fadeInSong(data, calculateFramerate(dictionary["bpm"]), 2)
+            #fadeInSong(data, calculateFramerate(dictionary["bpm"]), 2)
+            print("hello")
         elif effects == 1 : # reverter a música
             reverseSong(data)
         elif effects == 2 : # ajustar o volume da música
@@ -265,10 +266,11 @@ def createSong(dictionary):
         elif effects == 6 : # Introduzir um delay à música
             delaySong(data, calculateFramerate(dictionary["bpm"]), 5, 2) # choose new values !!!!!!!!
         elif effects == 11 : # efeito de Fade Out
-            fadeOutSong(data, calculateFramerate(dictionary["bpm"]), 2)
+            #fadeOutSong(data, calculateFramerate(dictionary["bpm"]), 2)
+            print("hello")
 
     
-    
+    print("In")
     # sample files are saved in dictionary["samples"]
     outFile = "newsong.wav" # song that is created
 
