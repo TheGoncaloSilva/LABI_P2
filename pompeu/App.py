@@ -4,6 +4,7 @@ import os
 import json
 from hashlib import sha256
 from datetime import date
+#from songEngine import durationSong, createSong
 
 PATH = os.path.abspath(os.path.dirname(__file__))
 DB_NAME = "BaseDados.db"
@@ -36,7 +37,7 @@ conf = {
 
 # FALTA:
 # funcao put para gerar as musicas com base numa pauta
-# testar as diversas funcoes
+# testar a funcao put
 
 
 # devolve o path de um sample(excerto) com o id dado
@@ -60,11 +61,17 @@ def getSample(id):
 # return -> path da musica caso exista. None caso nao exista
 def getSong(id):
     db = sql.connect(DB_NAME)
-    result = db.execute(
-        "SELECT path FROM Musicas WHERE id=?", (int(id),)).fetchone()  # so deve existir 1, mas por precaucao pedimos so o primeiro
+    # verificar se o id existe na db
+    try:
+        result = db.execute(
+            "SELECT id FROM Musicas WHERE id=?", (str(id),)).fetchone()[0]  # so deve existir 1, mas por precaucao pedimos so o primeiro
 
-    db .close()
-    return result  # result e None caso nao exista o id na db
+        return "songs/" + str(result) + ".wav"
+
+    except:
+        return None
+    finally:
+        db .close()
 
 
 class Root(object):
@@ -82,7 +89,7 @@ class Root(object):
         if str(type).lower() == "songs":
             db = sql.connect(DB_NAME)
             result = db.execute(
-                "SELECT id,nome,autor,length,date,votos FROM Musicas")
+                "SELECT * FROM Musicas")
             res = []
             # guarda os dados num array para depois tranformar num json
             for row in result:
@@ -95,7 +102,7 @@ class Root(object):
             # o ficheiro esta a ser atualizado com a funcao put
             return open("excertos.json")
         else:
-            return json.dumps({"erro": "type invalido"})
+            return json.dumps({"result": "failure", "erro": "type invalido"})
 
     @cherrypy.expose
     # procura e devolve, caso exista, o path da musica/excerto com o id dado
@@ -105,16 +112,16 @@ class Root(object):
         result = getSong(id)
         cherrypy.response.headers["Content-Type"] = "text/json"
         if result != None:
-            return json.dumps(result)
+            return json.dumps({"result": "sucess", "path": result})
 
         # nao foi encontrada nenhuma musica com o id especificado
         # possivelmente um excerto?
         result = getSample(id)
 
         if result != None:
-            return json.dumps(result)
+            return json.dumps({"result": "sucess", "path": result})
 
-        return json.dumps({"erro": "nao existe excerto nem musica com o id"})
+        return json.dumps({"result": "failure", "erro": "nao existe excerto nem musica com o id"})
 
     @cherrypy.expose
     # adicona uma musica ao sistema
@@ -129,24 +136,29 @@ class Root(object):
         jPauta = json.loads(pauta)
         song = getSong(id)
 
+        cherrypy.response.headers["Content-Type"] = "text/json"
+
         if song != None:
-            return json.dumps({"erro": "autor ja tem uma musica com esse nome"})
+            return json.dumps({"result": "failure", "erro": "autor ja tem uma musica com esse nome"})
 
         jPauta["id"] = n_id
-        created = True  # chamar a funcao para criar a musica
+        # createSong(jPauta)  # chamar a funcao para criar a musica
+        created = True
 
-        if not created:
-            return
+        if not created:  # [0]:
+            # created[1])})
+            return json.dumps({"result": "failure", "erro": str("erro")})
 
+        length = 0  # durationSong("songs/" + n_id + ".wav")
         # adicionar a db
         sqlCommand = "INSERT INTO Musicas (id,nome,autor,length,date,votos,path) VALUES (?,?,?,?,?,?,?)"
         db = sql.connect(DB_NAME)
         db.execute(sqlCommand, (n_id, nome, autor,
-                                0, str(date.today()), 0, "musicas"))  # falta meter a length
+                                length, str(date.today()), 0, "musicas"))
         db.commit()
         db.close()
 
-        return n_id
+        return json.dumps({"result": "sucesso"})
 
     @cherrypy.expose
     # atualiza os votos de uma musica
@@ -155,24 +167,26 @@ class Root(object):
     def vote(self, id, points):
         cherrypy.response.headers["Content-Type"] = "text/json"
         db = sql.connect(DB_NAME)
-        num_votes = db.execute(
-            "SELECT votos FROM Musicas WHERE id = ?", (int(id),)).fetchone()[0]
+        num_votes = None
+        try:
+            num_votes = db.execute(
+                "SELECT votos FROM Musicas WHERE id = ?", (str(id),)).fetchone()[0]
+        except:
+            db.close()
+            return json.dumps({"result": "failure", "erro": "musica nao encontrada"})
 
-        if num_votes == None:
-            # nao existe nenhuma musica com o id especificado
-            return json.dumps({"erro": "musica nao encontrada"})
         try:
             points = int(points)
         except:
-            return json.dumps({"erro": "points nao e inteiro"})
+            return json.dumps({"result": "failure", "erro": "points nao e inteiro"})
 
-        if points != -1 or points != 1:
-            return json.dumps({"erro": "points tem de ser 1 ou -1"})
+        if points != -1 and points != 1:
+            return json.dumps({"result": "failure", "erro": "points tem de ser 1 ou -1"})
 
         # atualiza o numero de votos e atualiza a tabela
         new_votes = int(num_votes) + points
-        db.execute("UPDATE Musicas SET votos = ? WHERE id like ?",
-                   (new_votes, int(id),))
+        db.execute("UPDATE Musicas SET votos = ? WHERE id = ?",
+                   (new_votes, str(id),))
 
         db.commit()  # funciona como o git commit e git push
         db.close()
@@ -180,4 +194,4 @@ class Root(object):
 
 
 cherrypy.config.update({'server.socket_port': 10014})
-cherrypy.quickstart(Root(), "/", config=conf)
+#cherrypy.quickstart(Root(), "/", config=conf)
