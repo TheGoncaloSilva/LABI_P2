@@ -16,18 +16,11 @@ async function getMusic(){
 
 function setMusic(){
     
-    var trs = document.getElementById("tableBody").children;
-    for(i = 0; i < trs.length; i++)
+    var trs = document.getElementById("MusicaIndiv").children;
+    for(i = 0; i < songs.length; i++)
     {
-        var select = trs[i].children[0].children[0];
-        for(j = 0; j < window.samples.length; j++)
-        {
-            var op = document.createElement("option");
-            op.text = window.samples[j]["nome"];
-            op.value = window.samples[j]["nome"];
-            op.classList.add("genOption");
-            select.appendChild(op)
-        }
+        var select = songs[i].children[0].children[0];
+        //var código = """ """
     }
 }
 
