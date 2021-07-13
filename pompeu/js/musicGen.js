@@ -10,9 +10,9 @@ function addTableLines(){
     document.getElementById('table-body').insertAdjacentHTML('afterbegin', lines);
 }
 
-var samples;
+var samples = undefined;
 
-async function getSamples()
+async function getSampleList()
 {
     const response = await fetch("/list?type=samples",{method: "GET"});
     const myJson = await response.json(); 
@@ -23,10 +23,10 @@ async function getSamples()
     }
 
     window.samples = myJson["samples"];
-    setSamplesOnHTML();
+    setSamples();
 }
 
-function setSamplesOnHTML()
+function setSamples()
 {
     var trs = document.getElementById("tableBody").children;
 
@@ -38,7 +38,7 @@ function setSamplesOnHTML()
         {
             var op = document.createElement("option");
             op.text = window.samples[j]["nome"];
-            op.value = window.samples[j]["nome"];
+            op.value = j;
             op.classList.add("genOption");
             select.appendChild(op)
         }
@@ -47,7 +47,7 @@ function setSamplesOnHTML()
 }
 
 function gerarArray(){
-    var col = [[]]
+    var col = []
 
     const trs = document.getElementById("tableBody").children;
     for(j = 0; j < trs.length;j++)
@@ -64,12 +64,12 @@ function gerarArray(){
 
             for(w = 0; w < tdChildren.length; w++)
             {
-                if(col[0][(z-1) * 5 + w] == undefined)
-                    col[0][(z-1) * 5 + w] = [];
+                if(col[(z-1) * 5 + w] == undefined)
+                    col[(z-1) * 5 + w] = [];
                 
                 if(tdChildren[w].checked)
                 {
-                    col[0][(z-1) * 5 + w].push("sounds/" + sample + ".wav");
+                    col[(z-1) * 5 + w].push(sample);
                 }
             }
         }
@@ -95,6 +95,18 @@ function getEffects()
     return effects
 }
 
+function getSamplesWithPath()
+{
+    var samples = []
+
+    for(i = 0;i < window.samples.length; i++)
+    {
+        samples.push("samples/" + window.samples[i]["id"] + ".wav");
+    }
+
+    return samples;
+}
+
 async function gerar()
 {
     const col = gerarArray();
@@ -104,19 +116,15 @@ async function gerar()
     const autor = document.getElementById("autor").value;
     const nome = document.getElementById("nome").value; //nome da musica
     const effects = getEffects();
+    const samples = getSamplesWithPath()
 
-    var sampleNames = [];
-
-    for(i = 0; i < window.samples.length; i++)
-    {
-        sampleNames.push(window.samples[i]["nome"])
-    }
-
-    const pauta = {"bpm":bpm,"volume":volume,"mask":mascara,"samples": sampleNames,"effects": effects,"music": col}
-
+    const pauta = {"bpm":bpm,"volume":volume,"mask":mascara,"samples": samples,"effects": effects,"music": col}
+    console.log(pauta)
     const json = JSON.stringify(pauta);
-
+    console.log(json)
     const response = await fetch("/put?pauta=" + json + "&nome=" + nome + "&autor=" + autor,{method: "POST"});
     const myJson = await response.json();
+    console.log(myJson)
+    
 }
 

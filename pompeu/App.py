@@ -5,7 +5,7 @@ import os
 import json
 from hashlib import sha256
 from datetime import date
-#from songEngine import durationSong, createSong
+from songEngine import durationSong, createSong
 
 PATH = os.path.abspath(os.path.dirname(__file__))
 DB_NAME = "BaseDados.db"
@@ -99,7 +99,7 @@ class Root(object):
     @cherrypy.expose
     def index(self):
         cherrypy.response.headers["Content-Type"] = "text/html"
-        return open("exporter.html", "r", encoding="utf-8")
+        return open("back_privacy.html", "r", encoding="utf-8")
 
     @cherrypy.expose
     # devolve uma lista com todas as musicas ou excertos no sistema
@@ -158,20 +158,18 @@ class Root(object):
         song = getSong(id)
 
         cherrypy.response.headers["Content-Type"] = "text/json"
-        return json.dumps({"id": n_id, "title": autor + "-" + nome})
 
         if song != None:
             return json.dumps({"result": "failure", "erro": "autor ja tem uma musica com esse nome"})
 
-        jPauta["id"] = n_id
-        # createSong(jPauta)  # chamar a funcao para criar a musica
-        created = True
+        jPauta["id"] = "songs/" + n_id + ".wav"
 
-        if not created:  # [0]:
-            # created[1])})
-            return json.dumps({"result": "failure", "erro": str("erro")})
+        created = createSong(jPauta)
 
-        length = 0  # durationSong("songs/" + n_id + ".wav")
+        if not created[0]:
+            return json.dumps({"result": "failure", "erro": "erro"})
+
+        length = durationSong("songs/" + n_id + ".wav")
         # adicionar a db
         sqlCommand = "INSERT INTO Musicas (id,nome,autor,length,date,votos) VALUES (?,?,?,?,?,?)"
         db = sql.connect(DB_NAME)
