@@ -32,6 +32,14 @@ conf = {
     "/samples": {
         "tools.staticdir.on": True,
         "tools.staticdir.dir": os.path.join(PATH, "samples")
+    },
+    "/webfonts": {
+        "tools.staticdir.on": True,
+        "tools.staticdir.dir": os.path.join(PATH, "webfonts")
+    },
+    "/images": {
+        "tools.staticdir.on": True,
+        "tools.staticdir.dir": os.path.join(PATH, "images")
     }
 }
 
@@ -78,7 +86,8 @@ class Root(object):
 
     @cherrypy.expose
     def index(self):
-        return ''
+        cherrypy.response.headers["Content-Type"] = "text/html"
+        return open("back_privacy.html")
 
     @cherrypy.expose
     # devolve uma lista com todas as musicas ou excertos no sistema
@@ -99,8 +108,8 @@ class Root(object):
             return json.dumps(res)
         elif str(type).lower() == "samples":
             # ficheiro ja existente no sistema
-            # o ficheiro esta a ser atualizado com a funcao put
-            return open("excertos.json")
+            j = json.loads(open("samples.json").read())
+            return json.dumps({"result": "sucess", "samples": j["samples"]})
         else:
             return json.dumps({"result": "failure", "erro": "type invalido"})
 
@@ -137,6 +146,7 @@ class Root(object):
         song = getSong(id)
 
         cherrypy.response.headers["Content-Type"] = "text/json"
+        return json.dumps({"id": n_id, "title": autor + "-" + nome})
 
         if song != None:
             return json.dumps({"result": "failure", "erro": "autor ja tem uma musica com esse nome"})
@@ -151,10 +161,10 @@ class Root(object):
 
         length = 0  # durationSong("songs/" + n_id + ".wav")
         # adicionar a db
-        sqlCommand = "INSERT INTO Musicas (id,nome,autor,length,date,votos,path) VALUES (?,?,?,?,?,?,?)"
+        sqlCommand = "INSERT INTO Musicas (id,nome,autor,length,date,votos) VALUES (?,?,?,?,?,?)"
         db = sql.connect(DB_NAME)
         db.execute(sqlCommand, (n_id, nome, autor,
-                                length, str(date.today()), 0, "musicas"))
+                                length, str(date.today()), 0))
         db.commit()
         db.close()
 
@@ -194,4 +204,4 @@ class Root(object):
 
 
 cherrypy.config.update({'server.socket_port': 10014})
-#cherrypy.quickstart(Root(), "/", config=conf)
+cherrypy.quickstart(Root(), "/", config=conf)
