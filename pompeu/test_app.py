@@ -53,3 +53,13 @@ def test_vote():
 
     assert int(n_votos) == int(votos) + \
         1, "Teste falhou -> votos nao estao corretos"
+
+
+def test_uploadSample():
+    fdata = open("test.wav", "rb").read()
+
+    # cada assert so pode ser feito 1x pois caso o sample nao exista, vai ser adicionado ao sistema
+    # e as tentativas de assert do mesmo ficheiro nao vao dar certo porque o resultado sera diferente
+    #{"result":"failure","erro":"ja existe um excerto com esse nome"}
+    assert App.Root().uploadSample(
+        fdata, "antonio") == json.dumps({"result": "sucess"})

@@ -118,7 +118,5 @@ async function gerar()
 
     const response = await fetch("/put?pauta=" + json + "&nome=" + nome + "&autor=" + autor,{method: "POST"});
     const myJson = await response.json();
-
-    console.log(myJson);
 }
 

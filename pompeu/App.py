@@ -1,3 +1,4 @@
+from json import encoder
 import cherrypy
 import sqlite3 as sql
 import os
@@ -82,12 +83,23 @@ def getSong(id):
         db .close()
 
 
+def updateSamplesFile(value):
+    try:
+        samples = json.loads(open("samples.json").read())
+        samples["samples"].append(value)
+        jSamples = json.dumps(samples)
+        open("samples.json", "w").write(jSamples)
+        return True
+    except:
+        return False
+
+
 class Root(object):
 
     @cherrypy.expose
     def index(self):
         cherrypy.response.headers["Content-Type"] = "text/html"
-        return open("back_privacy.html")
+        return open("exporter.html", "r", encoding="utf-8")
 
     @cherrypy.expose
     # devolve uma lista com todas as musicas ou excertos no sistema
@@ -171,6 +183,30 @@ class Root(object):
         return json.dumps({"result": "sucesso"})
 
     @cherrypy.expose
+    def uploadSample(self, sample, nome):
+        cherrypy.response.headers["Content-Type"] = "text/json"
+        h = sha256()
+        h.update(str(nome).encode("utf-8"))
+        id = h.hexdigest()
+
+        s = getSample(id)
+
+        if s != None:
+            return json.dumps({"result": "failure", "erro": "ja existe um excerto com esse nome"})
+
+        uploadPath = os.path.join(PATH, "samples")
+        uploadFile = os.path.join(uploadPath, id + ".wav")
+
+        open(uploadFile, "wb").write(sample)
+
+        res = updateSamplesFile({"nome": nome, "id": id, "length": 0})
+
+        if not res:
+            return json.dumps({"result": "failure", "erro": "ocorreu um erro durante o processamento"})
+
+        return json.dumps({"result": "sucess"})
+
+    @cherrypy.expose
     # atualiza os votos de uma musica
     # id -> id da musica a atualizar
     # points -> pontos a adicionar aos votos atuais (1,-1). mensagem de erro caso points seja invalido ou a musica nao exista
@@ -204,4 +240,5 @@ class Root(object):
 
 
 cherrypy.config.update({'server.socket_port': 10014})
-cherrypy.quickstart(Root(), "/", config=conf)
+if __name__ == "__main__":
+    cherrypy.quickstart(Root(), "/", config=conf)
