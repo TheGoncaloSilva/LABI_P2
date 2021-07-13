@@ -255,11 +255,13 @@ def createSong(dictionary):
     for sample in dictionary["samples"] : # certificar que todas as samples existem
         status = checkSong(sample)
         if(not status[0]): # verificar que não houve um erro
+            print([status[0], status[1]])
             return [status[0], status[1]] # se houver um erro, devolver
-    
+        
     for music in dictionary["music"] : # verificar a lista das musicas com as samples fornecidas
         for pos in music :
             if pos >= len(dictionary["samples"]) :
+                print([False, "Music indexes and samples provided do not match"])
                 return [False, "Music indexes and samples provided do not match"]
 
     data= []
@@ -307,8 +309,8 @@ def createSong(dictionary):
     # 3 - nframes
     # 4 - comptype
     # 5 - compname
-    print(data[0][0]) # Mostrar a informação do ficheiro original DEBUG
-    print("Output Framerate : " + str(calculateFramerate(dictionary["bpm"]))) # Mostrar a frequência do ficheiro de saída DEBUG
+    #print(data[0][0]) # Mostrar a informação do ficheiro original DEBUG
+    #print("Output Framerate : " + str(calculateFramerate(dictionary["bpm"]))) # Mostrar a frequência do ficheiro de saída DEBUG
 
     output = wave.open(dictionary["id"], 'wb') # abrir / criar o ficheiro output da música
     output.setparams(data[0][0]) # Escrever os parâmetros do ficheiro original no ficheiro de saída
@@ -317,6 +319,7 @@ def createSong(dictionary):
         output.writeframes(data[i][1]) # escrever no ficheiro de saída
     output.close() # fechar o ficheiro de saída
 
+    print([True, "Song generated"])
     return [True, "Song generated"] # devolver que todas as operações correram com sucesso
 
 createSong(dic) # DEBUG 
