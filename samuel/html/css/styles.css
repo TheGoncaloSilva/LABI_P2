@@ -19,6 +19,7 @@ Table Of Contents:
 - Copyright
 - Back To Top Button 
 - Extra Pages
+- Página exporter
 - Media Queries
 ******************************************/
 
@@ -1752,5 +1753,56 @@ a:hover.back-to-top {
 		margin-left: 2.875rem;
 	}
 	/* end of extra pages */
+	
+	/*Página Exporter*/
+	
+	.export-table{
+		border: 3px solid #404040;
+		margin: 3rem;
+		width: 100%;
+		background: linear-gradient(90deg, #000000, #FF1493);
+	}
+	
+	.export-table td{
+		height: 100px;
+		margin-bottom: 5px;
+		align-items: center;
+	}
+	
+	.audio-exp {
+		bottom: 0;
+		right: 0;
+		margin-left: 3rem;
+		margin-right: 3rem;
+		margin-top: 12px;
+	}
+	audio{
+		width: 70%;
+		margin-left: 10rem;
+		
+	}
+	
+	.export-table .name-exp {
+		position: absolute;
+		bottom: 25px;
+		right: 25rem;
+	}
+	
+	.table-beauty {
+		background: -webkit-linear-gradient(180deg, #00FA9A, #FF1493);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+	
+	.table-beauty-plus {		
+		color: #E0E0E0;
+	}
+	
+	.h1-exp{
+		margin: 75px;
+		background: -webkit-linear-gradient(180deg, #00FA9A, #00FFFF);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
 }
 /* end of min-width 1200px */
