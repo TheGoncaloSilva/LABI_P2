@@ -583,7 +583,7 @@ input[type='checkbox'] {
 /*****************/
 .header {
 	padding-top: 7rem;
-	background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../images/headphones.jpg') center center no-repeat;
+	background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../images/cheers.jpg') center center no-repeat;
 	background-size: cover;
 	text-align: center;
 	/*foto de overlay tá aqui!!!!*/
@@ -640,7 +640,14 @@ input[type='checkbox'] {
 
 .sec-header {
 	padding-top: 7rem;
-	background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../images/headphones.jpg') center center no-repeat;
+	background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../images/equalizer.png') center center no-repeat;
+	background-size: cover;
+	text-align: center;
+}
+
+.third-header {
+	padding-top: 7rem;
+	background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../images/cheers.jpg') center center no-repeat;
 	background-size: cover;
 	text-align: center;
 }
