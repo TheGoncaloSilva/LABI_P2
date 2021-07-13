@@ -1,6 +1,26 @@
-const userAction = async () => {
-	const response = await fecth('C:/Users/samut/Desktop/LABI/Projeto%20Final/labi2021-p2-g14/samuel/html/index.html');
+//cria rows para a tabela de excertos de exporter.html
+const userAction = async () => { 
+	const response = await fetch('/list?type=samples');
 	const myJson = await response.json();
-	console.log(myJson);
-	console.log(response);
+	
+	const sampArr = myJson["samples"];
+	const tbl = document.getElementById('pr');//tabl
+
+	for(var i = 0; i<sampArr.length; i++){
+		const name = sampArr[i]["nome"];	
+		var tr = document.createElement("tr");
+		tr.insertCell(0).innerHTML = name;
+		tr.children[0].classList.add("table-beauty-plus");
+		tr.insertCell(1).innerHTML = "<audio id=\"smp\" src=\"/samples/" + sampArr[i]["id"] + ".wav\" controls></audio>";
+		tbl.appendChild(tr);
+		/*tbl = document.getElementById('pr');//table 
+		elmnt = tbl.getElementsByTagName("TR")[1];
+		cln = elmnt.cloneNode(true);
+		tbl.tBodies[0].appendChild(cln);*/			
+	}
 }
+
+
+
+
+

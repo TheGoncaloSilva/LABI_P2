@@ -19,7 +19,6 @@ Table Of Contents:
 - Copyright
 - Back To Top Button 
 - Extra Pages
-- Página exporter
 - Media Queries
 ******************************************/
 
@@ -1522,28 +1521,6 @@ a:hover.back-to-top {
 
 
 	/* Details 1 */
-	.audio{
-		bottom: 0;
-		right: 0;
-		width: 65%;
-		position: absolute;
-		margin-left: 3rem;
-		margin-right: 3rem;
-	}
-	.audio audio{
-		width: 100%;
-		margin-left: auto;
-		margin-right: auto;
-		
-		outline: none;
-	}
-	
-	.author {
-		position: absolute;
-		top: 6rem;
-		left: 20.5rem;
-
-	}
 	
 	.basic-1 {
 		padding-top: 18rem;
@@ -1559,13 +1536,74 @@ a:hover.back-to-top {
 	.basic-1 .image-container {
 		margin-left: 1.5rem;
 	}
+
+	.music-box1 {
+		position: relative;
+		height: 12rem;
+		width: 100%;
+		background: linear-gradient(180deg, #303030, #00FFFF);
+		border-radius: 1rem;
+		box-shadow: 0 .5rem 1rem #000000;
+		
+		margin: 2rem;
+		
+		
+		flex-flow: row nowrap;
+	}
 	
+	.music-box1 .music-img1{
+		height: 100%;
+		width: 28.5%;
+	}
+	
+	.music-box1 .music-img1 img{
+		height: 100%;
+		width: 100%;
+	}
+
+	.music-box-box{
+		padding-left: 15px;
+		padding-top: 30px;
+		padding-bottom: 10px;
+	}
+
+	.audio{
+		width: 100%;
+	}
+	.audio audio{
+		width: 100%;
+	}
+
+	.author {
+		padding-bottom: 10px;
+	}
 	.give-like {
-		position: absolute;
-		top: 6rem;
-		right: 5rem;
+		float:right;
 		color: #FF1493;
 	}
+	
+	#right-child1{
+		top: 40%;
+		left: 30%;
+		width:100px; 
+		right:0; 
+		bottom: 0;
+		position:absolute;
+		z-index: 2;
+	}
+
+	#right-child2{
+		padding-left:50px;
+		top: 46%;
+		left: 50%;
+		width:100px; 
+		right:0; 
+		bottom: 0;
+		position:absolute;
+		z-index: 1;
+	}
+
+	/* NOT EDIT */
 	
 	.music-box {
 		position: relative;
@@ -1753,56 +1791,5 @@ a:hover.back-to-top {
 		margin-left: 2.875rem;
 	}
 	/* end of extra pages */
-	
-	/*Página Exporter*/
-	
-	.export-table{
-		border: 3px solid #404040;
-		margin: 3rem;
-		width: 100%;
-		background: linear-gradient(90deg, #000000, #FF1493);
-	}
-	
-	.export-table td{
-		height: 100px;
-		margin-bottom: 5px;
-		align-items: center;
-	}
-	
-	.audio-exp {
-		bottom: 0;
-		right: 0;
-		margin-left: 3rem;
-		margin-right: 3rem;
-		margin-top: 12px;
-	}
-	audio{
-		width: 70%;
-		margin-left: 10rem;
-		
-	}
-	
-	.export-table .name-exp {
-		position: absolute;
-		bottom: 25px;
-		right: 25rem;
-	}
-	
-	.table-beauty {
-		background: -webkit-linear-gradient(180deg, #00FA9A, #FF1493);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-	}
-	
-	.table-beauty-plus {		
-		color: #E0E0E0;
-	}
-	
-	.h1-exp{
-		margin: 75px;
-		background: -webkit-linear-gradient(180deg, #00FA9A, #00FFFF);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-	}
 }
 /* end of min-width 1200px */
