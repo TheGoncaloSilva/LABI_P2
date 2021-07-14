@@ -21,12 +21,13 @@ const userAction = async () => {
 		var audio = document.createElement("audio");
 
 		audio.src = "samples/" + sampArr[i][0] + ".wav";
+		audio.controls = true;
 		audio.id = "smp";
 		audio.style = "display: block;margin-left: auto;margin-right: auto;";
 
-		//td2.appendChild(audio);
-		//tr.appendChild(td2);
-		tr.insertCell(1).innerHTML = "<audio id=\"smp\" style=\"display: block;margin-left: auto;margin-right: auto;\" src=\"/samples/" + sampArr[i]["id"] + ".wav\" controls></audio>";
+		td2.appendChild(audio);
+		tr.appendChild(td2);
+		//tr.insertCell(1).innerHTML = "<audio id=\"smp\" style=\"display: block;margin-left: auto;margin-right: auto;\" src=\"/samples/" + sampArr[i]["id"] + ".wav\" controls></audio>";
 		tbl.appendChild(tr);
 		/*tbl = document.getElementById('pr');//table 
 		elmnt = tbl.getElementsByTagName("TR")[1];

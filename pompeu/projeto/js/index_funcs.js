@@ -33,7 +33,6 @@ function setMusic(){
     var container = document.getElementById("MusicaIndiv");
      
     for(var i = 0; i<window.songs.length; i++){
-        console.log(i);
         var div1 = document.createElement("div");
         div1.classList.add("row", "music-box1");
         div1.style.borderRadius = "0px";
@@ -95,31 +94,40 @@ function setMusic(){
         var div8 = document.createElement("div");
         div8.id = "right-child1";
 
-        var a1 = document.createElement("a");
-        a1.classList.add("btn-solid-md");
-        a1.id = "like-" + window.songs[i][0];
-        console.log(i);
-        a1.onclick = function(){ console.log(i-1 + window.songs); likeUp(window.songs[i-1][0]); };
-        var i1 = document.createElement("i");
-        i1.classList.add("far", "fa-thumbs-up", "fa-3x");
-        i1.style.color = "#FF1493";
-        a1.appendChild(i1);
+        //"<audio id=\"smp\" style=\"display: block;margin-left: auto;margin-right: auto;\" src=\"/samples/" + sampArr[i]["id"] + ".wav\" controls></audio>";
+        div8.innerHTML = "<a class=\"btn-solid-md\" id=\"like-" + window.songs[i][0] + "\" onclick=\"likeUp(" + i + ")\" ><i class=\"far fa-thumbs-up fa-3x\" style=\"color: #FF1493\"></i></a>"
 
-        div8.appendChild(a1);
+        //var a1 = document.createElement("a");
+        //a1.classList.add("btn-solid-md");
+        //a1.id = "like-" + window.songs[i][0];
+        console.log(i);
+        //console.log(i-1 + window.songs);
+        //a1.onclick = function(){console.log( likeUp.bind(window.songs[i][0])); };
+        console.log(songs[i][0]);
+        //a1.onclick = clickes.bind(i)();
+        //a1.addEventListener("click", clickes.bind(), false);
+        //var i1 = document.createElement("i");
+        //i1.classList.add("far", "fa-thumbs-up", "fa-3x");
+        //i1.style.color = "#FF1493";
+        //a1.appendChild(i1);
+
+        //div8.appendChild(a1);
 
         var div9 = document.createElement("div");
         div9.id = "right-child2";
 
-        var a2 = document.createElement("a");
+        div9.innerHTML = "<a class=\"btn-solid-md\" id=\"dislike-" + window.songs[i][0] + "\" onclick=\"dislike(" + i + ")\" ><i class=\"far fa-thumbs-down fa-3x\" style=\"color: #FF1493;\"></i></a>"
+
+        /*var a2 = document.createElement("a");
         a2.classList.add("btn-solid-md");
         a2.id = "dislike-" + window.songs[i][0];
-        a2.onclick = function(){ dislike(window.songs[i-1][0]); };
+        a2.onclick = function(){ dislike(window.songs[i][0]); };
         var i2 = document.createElement("i");
         i2.classList.add("far", "fa-thumbs-down", "fa-3x");
         i2.style.color = "#FF1493";
-        a2.appendChild(i2);
+        a2.appendChild(i2);*/
 
-        div9.appendChild(a2);
+        //div9.appendChild(a2);
         div7.appendChild(div8);
         div7.appendChild(div9);
         div1.appendChild(div2);
@@ -132,22 +140,28 @@ function setMusic(){
     
 }
 
+function clickes(value){
+    console.log(window.songs[value][0]);
+}
+
 var clickLike = false;
 var clickDisLike = false;
 
 function likeUp(id, change){
-	var like = document.getElementById("like-" + id);
+    console.log(id);
+	var like = document.getElementById("like-" + window.songs[id][0]);
 	console.log(like);
-	if(!window.dic[id][0]){
-		window.dic[id][0]= true;
+	if(!window.dic[window.songs[id][0]][0]){
+		window.dic[window.songs[id][0]][0]= true;
 		like.innerHTML = `<i class="fas fa-thumbs-up fa-3x" style="color: #FF1493;"></i>`;
+        votar(window.songs[id][0], 1);
         var j = JSON.stringify(window.dic);
         sessionStorage.pref = j;
-        if(window.dic[id][1]){
+        if(window.dic[window.songs[id][0]][1]){
             dislike(id, true); 
         }
 	}else{
-		window.dic[id][0] = false;
+		window.dic[window.songs[id][0]][0] = false;
 		like.innerHTML = `<i class="far fa-thumbs-up fa-3x" style="color: #FF1493;"></i>`;
         if(!change){
             sessionStorage.pref = "none";
@@ -156,18 +170,20 @@ function likeUp(id, change){
 }
 
 function dislike(id, change){
-	var like = document.getElementById("dislike-" + id);
+    console.log(id)
+	var like = document.getElementById("dislike-" + window.songs[id][0]);
 	console.log(like);
-	if(!window.dic[id][1]){
-		window.dic[id][1] = true;
+	if(!window.dic[window.songs[id][0]][1]){
+		window.dic[window.songs[id][0]][1] = true;
 		like.innerHTML = `<i class="fas fa-thumbs-down fa-3x" style="color: #FF1493;"></i>`;
+        votar(window.songs[id][0], -1);
         var j = JSON.stringify(window.dic);
         sessionStorage.pref = j;
-        if(window.dic[id][0]){
+        if(window.dic[window.songs[id][0]][0]){
             likeUp(id, true);
         }
 	}else{
-		window.dic[id][1] = false;
+		window.dic[window.songs[id][0]][1] = false;
 		like.innerHTML = `<i class="far fa-thumbs-down fa-3x" style="color: #FF1493;"></i>`;
         if(!change){
             sessionStorage.pref = "none";
@@ -177,7 +193,8 @@ function dislike(id, change){
 
 function loadPref(){
     var sess = sessionStorage.pref;
-    if(sess == "none") return;
+    if(sess == null) return;
+    console.log(sessionStorage.pref)
     var j = JSON.parse(sessionStorage.pref);
     var keys = Object.keys(j);
     for(i in keys){
@@ -191,7 +208,7 @@ function loadPref(){
 
 async function votar(musicId, value){
 
-    const result = await fetch("/vote?id=" + musicId + "&points=" + value,{method: "GET"});
+    const result = await fetch("../vote?id=" + musicId + "&points=" + value,{method: "GET"});
     const data = await result.json();
 
     if(data["result"] == "sucesso")
@@ -200,7 +217,7 @@ async function votar(musicId, value){
     }
     else
     {
-        aler("Ocorreu um erro a guardar o voto");
+        alert("Ocorreu um erro a guardar o voto");
     }
     
 }
