@@ -332,10 +332,118 @@ função devolve uma mensagem de erro em formato de list: [False, "erro"].
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MET: CHERRYPY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Servidor Cherrypy}
 \label{sec:serCherrypy}
+Neste secção será apresentada a metodologia do Cherrypy, ficheiro App.py.
 
-\subsection{Função principal}
-\label{ssec:princfunc}
+O servidor contêm 2 funções de ajuda, funções para abrir as diversas páginas web e funções que as páginas web chamam para receber/introduzir dados da base da dados.
+\subsection{Função getSample}
+\label{ssec:getSample}
+A função getSample é uma função de ajuda, que tem um parâmetro (id) o qual é usado para procurar um excerto.
+Esta devolve o caminho do sistema de ficheiros,caso o excerto exista.
+Para tal faz uma pesquisa na base de dados, se a pesquisa devolver alguma coisa então o excerto existe, caso contrário o excerto não existe então devolve None.\\
+A \textbf{\autoref{fig:getSample}} mostra como isto é feito em código.
 
+\begin{figure}[!h]
+\center 
+\includegraphics[width=330pt]{img/getSample.png}
+\caption{Código da função getSample}
+\label{fig:getSample}
+\end{figure}
+
+\subsection{Função getSong}
+\label{ssec:getSong}
+A função getSong é a outra função de ajuda.
+Esta, tal como a anterior, tem um parâmetro (id) que é usado para procurar uma música.
+O processo é exatamente igual ao da função anterior mas a pesquisa é feita na tabela Musicas em vez de ser na tabela Samples.\\
+A \textbf{\autoref{fig:getSong}} mostra como isto é feito em código.
+\begin{figure}[!h]
+\center 
+\includegraphics[width=330pt]{img/getSong.png}
+\caption{Código da função getSong}
+\label{fig:getSong}
+\end{figure}
+
+\subsection{Funções para abrir páginas web}
+\label{ssec:abrirWebPages}
+O site tem várias páginas e para navegar nelas é preciso que o servidor esteja pronto para receber os pedidos de navegação.
+Para tal existem funções que devolvem a página desejada.
+Como estas funções são todas iguais ou bastante parecidas, decidimos juntá-las numa secção.\\
+A \textbf{\autoref{fig:index}} mostra como isto é feito em código.
+
+\begin{figure}[!h]
+\center 
+\includegraphics[width=330pt]{img/index.png}
+\caption{Código da função index}
+\label{fig:index}
+\end{figure}
+
+\subsection{Função list}
+\label{ssec:list}
+A função list devolve uma lista com músicas ou samples dependendo do que é pedido.
+Para tal, esta faz uma pesquisa na base de dados e devolve a lista com os resultados.
+Caso o tipo pedido não seja válido, a função devolve um dicionário a indicar que deu erro e com uma mensagem a explicar.\\
+A \textbf{\autoref{fig:list}} mostra como isto é feito em código.
+
+\begin{figure}[!h]
+\center 
+\includegraphics[width=330pt]{img/list.png}
+\caption{Código da função list}
+\label{fig:list}
+\end{figure}
+
+\subsection{Função get}
+\label{ssec:get}
+A função get devolve o caminho do sistema de ficheiros da música ou excerto.
+Para tal, usa as funções de ajuda \textbf{\autoref{ssec:getSample}} e \textbf{\autoref{ssec:getSong}}. Se estas funções devolverem alguma coisa, então a música/excerto existe e o caminho deste é devolvido, caso contrário devolve um dicionário com a indicação de que falhou e uma mensagem de erro.\\
+A \textbf{\autoref{fig:get}} mostra como isto é feito em código.
+
+\begin{figure}[!h]
+\center 
+\includegraphics[width=330pt]{img/get.png}
+\caption{Código da função get}
+\label{fig:get}
+\end{figure}
+
+\subsection{Função put}
+\label{ssec:put}
+A função put gera uma música e insere a informação na base de dados.
+A música gerada é baseada numa pauta criada em js numa das páginas web.\\
+Devolve um dicionário a indicar o resultado da operação (sucesso ou falho) e uma mensagem de erro caso tenha falhado.\\
+A \textbf{\autoref{fig:put}} mostra como isto é feito em código.
+
+\begin{figure}[!h]
+\center 
+\includegraphics[width=330pt]{img/put.png}
+\caption{Código da função put}
+\label{fig:put}
+\end{figure}
+
+\subsection{Função uploadSample}
+\label{ssec:uploadSample}
+A função uploadSample deixa o utilizador introduzir um excerto no sistema, através de uma página web.
+Na função, o excerto é lido e um ficheiro wav é criado com um nome (id) também gerado em código.
+Os dados do ficheiro são guardados na base de dados caso o excerto tenha sido guardado com sucesso.\\
+Devolve um dicionário a indicar o resultado da operação e uma mensagem de erro caso tenha falhado.\\
+A \textbf{\autoref{fig:uploadSample}} mostra como isto é feito em código.
+
+\begin{figure}[!h]
+\center 
+\includegraphics[width=330pt]{img/uploadSample.png}
+\caption{Código da função uploadSample}
+\label{fig:uploadSample}
+\end{figure}
+
+\subsection{Função vote}
+\label{ssec:vote}
+A função vote atualiza os votos, de uma música, na base de dados.\\
+Devolve um dicionário a indicar o resultado e uma mensagem de erro caso a operação tenha falhado.\\
+A \textbf{\autoref{fig:vote}} mostra como isto é feito em código.
+
+\begin{figure}[!h]
+\center 
+\includegraphics[width=330pt]{img/vote.png}
+\caption{Código da função vote}
+\label{fig:vote}
+\end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MET: SQL %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{SQL}
 \label{sec:sql}
