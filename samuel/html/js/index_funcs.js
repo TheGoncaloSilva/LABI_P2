@@ -42,7 +42,7 @@ function setMusic(){
         div2.classList.add("col-md-3", "music-img1");
         div2.style.padding = "0px";
         var img = document.createElement("img");
-        img.src = "./../images/about.jpg"
+        img.src = "./../images/vinil.jpg"
         div2.appendChild(img);
 
         var div3 = document.createElement("div");
@@ -62,9 +62,18 @@ function setMusic(){
         span1.innerHTML = window.songs[i][2] + " | ";
         var span2 = document.createElement("span");
         span2.style.color = "#000000";
-        span2.innerHTML = window.songs[i][4];
+        span2.innerHTML = window.songs[i][4] + " | ";
+        var span3 = document.createElement("span");
+        span3.style.color = "#000000";
+        span3.innerHTML = window.songs[i][5] + " ";
+        var icn = document.createElement("i");
+        icn.style.color = "#FF1493";
+        icn.classList.add("fas", "fa-heart");
+        span3.appendChild(icn); 
+        
         div5.appendChild(span1);
         div5.appendChild(span2);
+        div5.appendChild(span3);
 
         var div6 = document.createElement("div");
         var audio = document.createElement("audio");
