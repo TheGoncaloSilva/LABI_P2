@@ -65,15 +65,6 @@ def getSample(id):
     finally:
         db.close()
 
-#    excertos = json.loads(content)["samples"]
-#    for excerto in excertos:
-#        if id == excerto["id"]:
-        # foi encontrado um excerto com o id especificado
-#            return "samples/" + str(id)
-
-    # nao existe excerto com o id especificado
-#    return None
-
 
 # devolve o path de uma musica com o id dado
 # id -> id da musica desejada
@@ -93,23 +84,22 @@ def getSong(id):
         db .close()
 
 
-# def updateSamplesFile(value):
-#    try:
-#        samples = json.loads(open("samples.json").read())
-#        samples["samples"].append(value)
-#        jSamples = json.dumps(samples)
-#        open("samples.json", "w").write(jSamples)
-#        return True
-#    except:
-#        return False
-
-
 class Root(object):
 
     @cherrypy.expose
     def index(self):
         cherrypy.response.headers["Content-Type"] = "text/html"
         return open("./html/index.html", "r", encoding="utf-8")
+
+    @cherrypy.expose
+    def excertos(self):
+        cherrypy.response.headers["Content-Type"] = "text/html"
+        return open("./html/exporter.html", "r", encoding="utf-8")
+
+    @cherrypy.expose
+    def songGen(self):
+        cherrypy.response.headers["Content-Type"] = "text/html"
+        return open("./html/songGen.html", "r", encoding="utf-8")
 
     @cherrypy.expose
     # devolve uma lista com todas as musicas ou excertos no sistema
@@ -190,7 +180,7 @@ class Root(object):
         db.commit()
         db.close()
 
-        return json.dumps({"result": "sucesso"})
+        return json.dumps({"result": "success"})
 
     @cherrypy.expose
     def uploadSample(self, sample, nome):

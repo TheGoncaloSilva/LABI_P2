@@ -200,7 +200,7 @@ async function gerar()
     const response = await fetch("/put?pauta=" + json + "&nome=" + nome + "&autor=" + autor,{method: "POST"});
     const myJson = await response.json();
 
-    if(myJson["result"] == "sucesso")
+    if(myJson["result"] == "success")
     {
         var ask = confirm("Musica gerada");
 

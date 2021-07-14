@@ -208,16 +208,17 @@ function loadPref(){
 
 async function votar(musicId, value){
 
-    const result = await fetch("../vote?id=" + musicId + "&points=" + value,{method: "GET"});
+    const result = await fetch("/vote?id=" + musicId + "&points=" + value,{method: "GET"});
     const data = await result.json();
-
-    if(data["result"] == "sucesso")
+    console.log(data)
+    if(data["result"] == "success")
     {
         alert("Voto guardado");
+        window.location.href = "../index"
     }
     else
     {
-        alert("Ocorreu um erro a guardar o voto");
+        alert("ocorreu um erro");
     }
     
 }
