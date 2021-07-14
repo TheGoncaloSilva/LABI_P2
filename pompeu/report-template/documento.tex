@@ -149,7 +149,7 @@ Nesta secção será apresentada a metodologia do Gerador de Músicas, ficheiro 
 
 \subsection{Função readSong}
 \label{ssec:readSong}
-A função readSong, como se poder fer na \textbf{\autoref{fig:readSong}}, recebe como parâmetros um ficheiro .wav e devolve a informação acerca deletion,
+A função readSong, como se poder fer na \textbf{\autoref{fig:readSong}}, recebe como parâmetros um ficheiro .wav e devolve a informação acerca do mesmo,
 no formato wave\_params, que corresponde a uma lista a cujos índices guardam a informação da seguinte forma:
 \begin{itemize}
     \item \textbf{'0'} - Número de canais do ficheiro (nchannels);
@@ -327,7 +327,6 @@ função devolve uma mensagem de erro em formato de list: [False, "erro"].
 \caption{Código da função createSong}
 \label{fig:createSong}
 \end{figure}
-    
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MET: CHERRYPY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Servidor Cherrypy}
@@ -470,14 +469,131 @@ Também criámos uma tabela Samples para guardar informação sobre os excertos.
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MET: INTERFACE WEB %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Interface Web}
+section{Interface Web}
 \label{sec:interfaceWeb}
+\hspace{5pt}Nesta secção, será explicada a estrutura e funcionamento da Interface Web 
+e o modo como comunica com o servidor.
+
+\subsection{Página Web}
+\hspace{5pt}A Interface  foi criada através de um template retirado da internet (Spify). 
+Tal como é mencionado no enunciado, é constituída por 3 páginas, sendo a primeira a página 
+onde são listadas todas as músicas da aplicação, a segunda a página onde são listados os 
+excertos e a terceira a página que tem o gerador de músicas. 
+
+\subsubsection{Index}
+\hspace{5pt}A página Index sofreu algumas alterações, nomeadamente a cor de fundo, a imagem 
+de overlay, a barra de navegação, alguns detalhes como títulos, o rodapé e a adição da 
+funcionalidade. Foi criado um design para a aparência das músicas, com os respetivos dados: 
+autor, áudio, data, dar votos e mostrar o número de votos. Esta aparência foi criada sem o 
+uso de \ac{bs}, à exceção das divisões de localização deste design. 
+
+\subsubsection{Samples}
+\hspace{5pt}A página Samples era a antiga página "Articles" do template original. Esta página 
+sofreu as mesmas alterações que a página Index, mudando apenas a funcionalidade da página. 
+Para criar esta última alteração, foi criada uma tabela com a ajuda da biblioteca \ac{bs}; 
+onde é possível ver o autor do excerto e o áudio deste mesmo.
+
+\subsubsection{Gerador}
+\hspace{5pt}A página Gerador era a antiga página "Privacy", sofreu as mesmas alterações que 
+as restantes, à exceção da funcionalidade dessa página. Foi criada uma interface para o Gerador 
+de músicas à base de \ac{bs}, onde se pode selecionar alguns parãmetros localizados nessa 
+interface de maneira a ser gerada uma música com essas características. 
 
 \subsection{JavaScript}
+\hspace{5pt}O template já tinha algum código \ac{js} dentro de uma pasta denominada "js", o 
+qual não foi alterado. Porém, foi adicionado a essa pasta 3 ficheiros: "index\_funcs, getdata 
+e musicgen". Esses ficheiros são responsáveis pelas funcionalidades das 3 páginas, respetivamente. 
+\paragraph{}
+\hspace{5pt}O ficheiro index\_funcs tem como objetivo adicionar à página Index as funcionalidades 
+correspondentes à apresentação das músicas do sistema.
+Foram criadas 1 array "songs", em que cada posição correspondea  um array com informações sobre 
+as músicas,  e 1 dicionário "dic" que serve de auxílio para a função que guardar os estados de 
+voto quando se volta a entrar na página.
+
+\subsubsection{Função setMusic}
+\hspace{5pt}A função setMusic tem como objetivo criar a interface que apresenta todas as opções 
+descritas para a página Index. São criadas os respetivos items(div, h, span, etc...) através de 
+"document.createElement("item")", adicionando as respetivas classes através de "item.classList.add("class")", 
+e algumas possíveis marcas style ou outros atributos através de "item.atributo". Foi também 
+estabeleciada a relação filial correta dos determinados items através de "item.appendChild(itemfilho)". 
+De seguida, a última linha de código serve para estabelecer o estado dos botões de votação, sendo 
+ambos falsos inicialmente porque ainda não houve votação.
+
+\subsubsection{Funções likeUp e dislike}
+\hspace{5pt}Estas funções definem em que circunstâncias é que houve uma votação positiva ou negativa. 
+Ambas possuem um algoritmo muito idêntico, mudando apenas os ícones que são colocados. Na função likeUp, 
+a variável like corresponde à marca "a" que é responsável pelo ícone de votação positiva. Se em dic, 
+na posição 0(correspondente ao valor do voto positivo) estiver false, houve voto positivo e é criada 
+a marca correspondente, sendo guardado em sessionStorage esse dado no formato \ac{json}. Caso tenha 
+havido voto negativo, é executada a função correspondente(dislike). Se na posição 0 estiver true, não 
+houve voto positivo e é alterado o ícone. Se não houve alteração de votos, é guardado em sessionStorage.pref 
+o valor none que indica que não houve alterações. A função de dislike é praticamente igual, como referido, 
+alterando apenas os ícones e as condições, que passam a corresponder ao voto negativo.
+
+\subsubsection{Função loadPref}
+\hspace{5pt}Para que os votos do utilizador sejam guardados na aplicação, sem que sejam perdidos caso o 
+utilizador saia desta, é necessária que haja algum mecanismo para ser feito o que foi descrito, neste 
+caso é loadPref. Se não houve alterações de votação, não é feito nada. Caso tenha havido alterações de 
+votação, são analizadas essas alterações e, no caso da existência de voto positivo, é executada a função 
+likeUp e é executada a função dislike no caso do voto negativo.
+
+\subsubsection{Função getMusic}
+\hspace{5pt}Esta função é a principal e obtem os dados pertencentes ao servidor e executa também as 
+restantes funções. A constante result e a constante data guardam esses dados no formato \ac{json} para 
+poderem ser manipulados. A variável songs vai guardar os valores em data. Logo a seguir, são executadas 
+as funções setMusic e loadPref.
+
+\paragraph{}
+
+\hspace{5pt}O ficheiro getdata tem como objetivo adicionar à página Excertos as funcionalidades 
+correspondentes à apresentação dos excertos do sistema.
+
+\subsubsection{userAction}
+\hspace{5pt}Esta função tem como objetivo realizar todas as funcionalidades da responsabilidade de 
+getdata.js. Para isso, é criado, à semelhança de getMusic, uma constante response possui os dados 
+do servido, que são convertidos para \ac{json} e guardados em myJson. A constante sampArr vai 
+guardar o valor da chave samples proveniente de myJson, que contem os excertos. A contante tbl 
+corresponde à tabela que se encontra na página. De seguida, serão criadas as várias interfaces de cada 
+música existente. A constante name indica o nome da música e encontra-se na chave nome do dicionário da 
+determinada posição do array sampArr. Será criada uma marca table row (tr) e as suas 2 células, que são a 
+que indicará o nome do autor do excerto e o excerto em si. Por fim, é estabelecida a relação filial entre 
+estas marcas e a tabela (tbl).
+
+\paragraph{}
+
+Por fim, resta-nos explicar o ficheiro musicGen. Este ficheiro tem como objetivo gerar a interface gráfica 
+do gerador de músicas correspondente à página Gerador do site.
+\subsubsection{Função generateLines}
+\hspace{5pt}De acordo com o meu colega, Esta função tem como objetivo criar a tabela dinâmica da interface 
+do gerador de músicas, Será criada uma tabela com as respetivas marcas, as suas classes (\ac{bs}) e é 
+estabelecida a filiação respetiva.
+
+\subsubsection{Função getSampleList}
+\hspace{5pt}Esta função fornece os excertos necessários ao gerador de músicas. A constante response vai 
+guardar os excertos provenientes do servidor e a constante myJson vai guardar os dados de response no formato 
+\ac{json}, com o objetido de serem fornecidas as samples para posteriormente executar a função generateLines.
+
+\subsubsection{Função gerarArray}
+\hspace{5pt} A função gerarArray transforma as checkboxes num array em que cada posição contem um array com 
+as opções de cada checkboxe. Fim
+
+\subsubsection{Função getEffects}
+\hspace{5pt}Esta função fornece um array com os efeitos aplicados em cada uma das linhas. Se uma linha não 
+possuir efeitos, o array não vai introduzir nada na posição correspondente a essa linha.
+
+\subsubsection{Função getSamplesWithPath}
+\hspace{5pt}Esta função cria um array com os caminhos dos excertos para serem utilizados no servidor para 
+gerar a música.
+
+\subsubsection{Função gerar}
+\hspace{5pt}Esta função envia os dados necessários para o servidor gerar uma música e avisa logo de seguida 
+se essa ação foi sucedida ou não. São criadas constantes correspondentes aos variados dados (volume, \ac{bpm}, 
+efeitos, etc...), para além do array com as opções das checkboxes(é chamada a função gerarArray), dos efeitos e 
+dos excertos (são executadas as funções gerarArray, geteffects e getSamplesWithPath, respetivamente, para estes 
+3 últimos). Estes dados são guardados numa constante, convertidos para \ac{json} e enviados neste formato para 
+o servidor. 
 \label{ssec:JS}
 
-\subsection{Gerador de Imagens}
-\label{ssec:geradorImagens}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MET: GIT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Git}
@@ -573,6 +689,9 @@ No fim indicar a percentagem de contribuição de cada autor.
 \acro{labi}[LABI]{Laboratórios de Informática}
 \acro{bpm}[BPM]{Beats Per Minute}
 \acro{glisc}[GLISC]{Grey Literature International Steering Committee}
+\acro{js}{JS}{JavaScript}
+\acro{bs}{BS}{Twitter Bootstrap}
+\acro{json}{JSON}{JavaScript Objective Notation}
 \end{acronym}
 
 
