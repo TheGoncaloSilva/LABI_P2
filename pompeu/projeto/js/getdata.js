@@ -36,6 +36,30 @@ const userAction = async () => {
 	}
 }
 
+async function criarExcerto(){
+
+	const name = document.getElementById("nameFile").value;
+    const file = document.getElementById("uploadFile").files[0];
+	console.log(file)
+	let formData = new FormData();
+		 
+	formData.append("photo", file);
+
+    const response = await fetch("../uploadSample?nome=" + name + "&file=" + file, {method: "POST", body: formData});
+    const myJson = await response.json();
+
+    if(myJson["result"] == "success")
+    {
+        alert("Excerto carregado com sucesso");
+        window.location.href = "";
+    }
+    else
+    {
+        alert("Ocorreu um erro na geracao da musica");
+    }
+
+}
+
 
 
 

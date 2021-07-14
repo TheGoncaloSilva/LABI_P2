@@ -103,6 +103,24 @@
 				</div>		
             </div> <!-- end of row -->
         </div> <!-- end of container -->
+        <div class="container" style="margin-bottom: 5%;">
+            <div class="row border-top">
+                <div class="col-md-2">
+                    <h3 class="text-center" style="margin-top: 20%;">Adicionar Excerto:</h3>
+                </div>
+                <div class="col-md-4" style="margin-top: 20px;">
+                    <h3>Nome: </h3>
+                    <input style="background: rgb(49, 49, 49); color: white;" required id="nameFile" name="nameFile" type="text" placeholder="Insira o nome do excerto" maxlength="25" class="cus-form">
+                </div>
+                <div class="col-md-3" style="margin-top: 20px;">
+                    <h3>Ficheiro: </h3>
+                    <input required id="uploadFile" name="uploadFile" type="file" class="cus-form" accept=".wav">
+                </div>
+                <div class="col-md-3" style="margin-top: 40px;">
+                    <button style="float: right; margin-top: 2%;" class="btn-solid-reg mb-5" onclick="criarExcerto()">Gerar Música</button>
+                </div>
+            </div>
+        </div>
     </div> <!-- end of ex-basic-1 -->
     <!-- end of basic -->
 
