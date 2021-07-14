@@ -109,7 +109,7 @@ class Root(object):
     @cherrypy.expose
     def index(self):
         cherrypy.response.headers["Content-Type"] = "text/html"
-        return open("index.html", "r", encoding="utf-8")
+        return open("./html/index.html", "r", encoding="utf-8")
 
     @cherrypy.expose
     # devolve uma lista com todas as musicas ou excertos no sistema

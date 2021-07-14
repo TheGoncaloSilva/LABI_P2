@@ -56,7 +56,7 @@ def test_vote():
 
 
 def test_uploadSample():
-    fdata = open("test.wav", "rb").read()
+    fdata = open("./sounds/arcade-retro-game-over.wav", "rb").read()
 
     # cada assert so pode ser feito 1x pois caso o sample nao exista, vai ser adicionado ao sistema
     # e as tentativas de assert do mesmo ficheiro nao vao dar certo porque o resultado sera diferente

@@ -48,7 +48,9 @@ body, p {
 }
 
 h1 {
-	color: #00FFFF;
+	background: -webkit-linear-gradient(180deg, #00FA9A, #00ffff);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 	font-weight: 700;
 	font-size: 2.5rem;
 	line-height: 3.25rem;
@@ -178,9 +180,9 @@ a:hover {
 .btn-solid-lg {
 	display: inline-block;
 	padding: 1.625rem 2.625rem 1.625rem 2.625rem;
-	border: 1px solid #c2337b;
+	border: 1px solid #FF1493;
 	border-radius: 32px;
-	background-color: #c2337b;
+	background-color: #FF1493;
 	color: #ffffff;
 	font-weight: 600;
 	font-size: 0.875rem;
@@ -442,11 +444,20 @@ input[type='checkbox'] {
 }
 
 .navbar .logo-text {
-	color: #ffffff;
 	font-weight: 700;
-	font-size: 1.875rem;
+	font-size: 1.475rem;
 	line-height: 1rem;
 	text-decoration: none;
+}
+
+.logo-text-sec { /* logo pt 2*/
+	font-weight: 700;
+	font-size: 1.475rem;
+	line-height: 1rem;
+	text-decoration: none;
+	background: -webkit-linear-gradient(180deg, #00FA9A, #00ffff);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
 
 .offcanvas-collapse {
@@ -487,7 +498,7 @@ input[type='checkbox'] {
 .navbar .nav-item.dropdown.show .nav-link,
 .navbar .nav-item .nav-link:hover,
 .navbar .nav-item .nav-link.active {
-	color: #ff67b3;
+	color: #FF1493;
 }
 
 /* Dropdown Menu */
@@ -572,9 +583,10 @@ input[type='checkbox'] {
 /*****************/
 .header {
 	padding-top: 7rem;
-	background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../images/header-background.jpg') center center no-repeat;
+	background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../images/cheers.jpg') center center no-repeat;
 	background-size: cover;
 	text-align: center;
+	/*foto de overlay tá aqui!!!!*/
 }
 
 .header .image-container {
@@ -587,7 +599,7 @@ input[type='checkbox'] {
 
 .header h3 {
 	margin-bottom: 2rem;
-	color: #ffffff;
+	color: #00ffff;
 }
 
 .header .btn-solid-lg:hover {
@@ -626,6 +638,19 @@ input[type='checkbox'] {
 	color: #ffffff;
 }
 
+.sec-header {
+	padding-top: 7rem;
+	background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../images/equalizer.png') center center no-repeat;
+	background-size: cover;
+	text-align: center;
+}
+
+.third-header {
+	padding-top: 7rem;
+	background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../images/cheers.jpg') center center no-repeat;
+	background-size: cover;
+	text-align: center;
+}
 
 /*********************/
 /*     Details 1     */
@@ -1026,8 +1051,7 @@ input[type='checkbox'] {
 /*     Footer     */
 /******************/
 .footer {
-	padding-top: 6.5rem;
-	padding-bottom: 2rem;
+	padding-top: 5rem;
 	background-color: #000000;
 }
 
@@ -1487,10 +1511,17 @@ a:hover.back-to-top {
 		margin-right: 3.5rem;
 		margin-left: 3.5rem;
 	}
+	
+	.sec-header {
+		position: relative;
+		padding-top: 15.5rem;
+		padding-bottom: 10rem;
+	}
 	/* end of header */
 
 
 	/* Details 1 */
+	
 	.basic-1 {
 		padding-top: 18rem;
 		padding-bottom: 12.5rem;
@@ -1504,6 +1535,98 @@ a:hover.back-to-top {
 
 	.basic-1 .image-container {
 		margin-left: 1.5rem;
+	}
+
+	.music-box1 {
+		position: relative;
+		height: 12rem;
+		width: 100%;
+		background: linear-gradient(180deg, #303030, #00FFFF);
+		border-radius: 1rem;
+		box-shadow: 0 .5rem 1rem #000000;
+		
+		margin: 2rem;
+		
+		
+		flex-flow: row nowrap;
+	}
+	
+	.music-box1 .music-img1{
+		height: 100%;
+		width: 28.5%;
+	}
+	
+	.music-box1 .music-img1 img{
+		height: 100%;
+		width: 100%;
+	}
+
+	.music-box-box{
+		padding-left: 15px;
+		padding-top: 30px;
+		padding-bottom: 10px;
+	}
+
+	.audio{
+		width: 100%;
+	}
+	.audio audio{
+		width: 100%;
+	}
+
+	.author {
+		padding-bottom: 10px;
+	}
+	.give-like {
+		float:right;
+		color: #FF1493;
+	}
+	
+	#right-child1{
+		top: 40%;
+		left: 30%;
+		width:100px; 
+		right:0; 
+		bottom: 0;
+		position:absolute;
+		z-index: 2;
+	}
+
+	#right-child2{
+		padding-left:50px;
+		top: 46%;
+		left: 50%;
+		width:100px; 
+		right:0; 
+		bottom: 0;
+		position:absolute;
+		z-index: 1;
+	}
+
+	/* NOT EDIT */
+	
+	.music-box {
+		position: relative;
+		height: 12rem;
+		width: 100%;
+		background: linear-gradient(180deg, #303030, #00FFFF);
+		border-radius: 1rem;
+		box-shadow: 0 .5rem 1rem #000000;
+		overflow: hidden;
+		margin: 2rem;
+		display: flex;
+		align-items: center;
+		flex-flow: row nowrap;
+	}
+	
+	.music-box .music-img{
+		height: 100%;
+		width: 28.5%;
+	}
+	
+	.music-box .music-img img{
+		height: 100%;
+		width: 100%;
 	}
 	/* end of details 1 */
 
