@@ -444,9 +444,36 @@ A \textbf{\autoref{fig:vote}} mostra como isto é feito em código.
 \caption{Código da função vote}
 \label{fig:vote}
 \end{figure}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MET: SQL %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{SQL}
 \label{sec:sql}
+Para a criação da base de dados, utilizamos o terminal, usando o programa sqlite3.
+Usando os comandos( CREATE TABLE Musicas();), colocando os diferentes campos com a 
+respetiva indicaçao do tipo(INTEGER, TEXT, FLOAT, etc) dentro dos parênteses.
+Neste caso usamos vários campos, Id para identicar a música, Nome para indicarmos 
+o nome da música, Autor para sabermos a quem pertence a música, path para podermos 
+armazenar e saber onde está a música, votos para podermos saber quantos votos a 
+música já recebeu, length para sabermos o tamanho da música e por fim date para 
+sabermos quando é que a música foi criada.
+Durante a resolução do trabalho foram colocados alguns valores para as funcionalidades 
+do trabalho serem testadas, para isso usámos outros comando disponíveis no sqlite3 
+(INSERT INTO Musicas VALUES();) introduzindo os valores para cada campo dentro dos 
+parênteses (\textbf{\autoref{fig:sql1}}, \textbf{\autoref{fig:sql2}}).
+
+\begin{figure}[!h]
+\center 
+\includegraphics[width=330pt]{img/sql_1.png}
+\caption{Exemplo da interação com a shell ubuntu e a base de dados}
+\label{fig:sql1}
+\end{figure}
+
+\begin{figure}[!h]
+\center 
+\includegraphics[width=330pt]{img/sql_2.png}
+\caption{Efetuar comandos usando a shell ubuntu na bade de dados}
+\label{fig:sql2}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MET: INTERFACE WEB %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Interface Web}
