@@ -16,13 +16,8 @@ async function getSampleList()
 {
     const response = await fetch("/list?type=samples",{method: "GET"});
     const myJson = await response.json(); 
-    if(myJson["result"] != "sucess")
-    {
-        windows.samples =  undefined;
-        return;
-    }
 
-    window.samples = myJson["samples"];
+    window.samples = myJson;
     setSamples();
 }
 
@@ -37,7 +32,7 @@ function setSamples()
         for(j = 0; j < window.samples.length; j++)
         {
             var op = document.createElement("option");
-            op.text = window.samples[j]["nome"];
+            op.text = window.samples[j][1];
             op.value = j;
             op.classList.add("genOption");
             select.appendChild(op)
@@ -101,7 +96,7 @@ function getSamplesWithPath()
 
     for(i = 0;i < window.samples.length; i++)
     {
-        samples.push("samples/" + window.samples[i]["id"] + ".wav");
+        samples.push("samples/" + window.samples[i][0] + ".wav");
     }
 
     return samples;

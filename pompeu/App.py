@@ -1,4 +1,5 @@
 from json import encoder
+from typing import final
 import cherrypy
 import sqlite3 as sql
 import os
@@ -83,15 +84,15 @@ def getSong(id):
         db .close()
 
 
-def updateSamplesFile(value):
-    try:
-        samples = json.loads(open("samples.json").read())
-        samples["samples"].append(value)
-        jSamples = json.dumps(samples)
-        open("samples.json", "w").write(jSamples)
-        return True
-    except:
-        return False
+# def updateSamplesFile(value):
+#    try:
+#        samples = json.loads(open("samples.json").read())
+#        samples["samples"].append(value)
+#        jSamples = json.dumps(samples)
+#        open("samples.json", "w").write(jSamples)
+#        return True
+#    except:
+#        return False
 
 
 class Root(object):
@@ -110,18 +111,22 @@ class Root(object):
         if str(type).lower() == "songs":
             db = sql.connect(DB_NAME)
             result = db.execute(
-                "SELECT * FROM Musicas")
-            res = []
+                "SELECT * FROM Musicas").fetchall()
+            #res = []
             # guarda os dados num array para depois tranformar num json
-            for row in result:
-                res.append(row)
+            # for row in result:
+            # res.append(row)
 
             db.close()
-            return json.dumps(res)
+            return json.dumps(result)
         elif str(type).lower() == "samples":
+            db = sql.connect(DB_NAME)
+            result = db.execute("SELECT * FROM Samples").fetchall()
+            db.close()
+            return json.dumps(result)
             # ficheiro ja existente no sistema
-            j = json.loads(open("samples.json").read())
-            return json.dumps({"result": "sucess", "samples": j["samples"]})
+            #j = json.loads(open("samples.json").read())
+            # return json.dumps({"result": "sucess", "samples": j["samples"]})
         else:
             return json.dumps({"result": "failure", "erro": "type invalido"})
 
@@ -191,16 +196,29 @@ class Root(object):
 
         if s != None:
             return json.dumps({"result": "failure", "erro": "ja existe um excerto com esse nome"})
+        try:
+            uploadPath = os.path.join(PATH, "samples")
+            uploadFile = os.path.join(uploadPath, id + ".wav")
 
-        uploadPath = os.path.join(PATH, "samples")
-        uploadFile = os.path.join(uploadPath, id + ".wav")
-
-        open(uploadFile, "wb").write(sample)
-
-        res = updateSamplesFile({"nome": nome, "id": id, "length": 0})
-
-        if not res:
+            open(uploadFile, "wb").write(sample)
+            length = durationSong("samples/" + id + ".wav")
+        except:
             return json.dumps({"result": "failure", "erro": "ocorreu um erro durante o processamento"})
+
+        db = sql.connect(DB_NAME)
+        try:
+            db.execute(
+                "INSERT INTO Samples(id,nome,length) VALUES(?,?,?)", (id, str(nome), length))
+            db.commit()
+        except:
+            return json.dumps({"result": "failure", "erro": "ocorreu um erro a inserir na db"})
+        finally:
+            db.close()
+
+        #res = updateSamplesFile({"nome": nome, "id": id, "length": 0})
+
+        # if not res:
+            # return json.dumps({"result": "failure", "erro": "ocorreu um erro durante o processamento"})
 
         return json.dumps({"result": "sucess"})
 
