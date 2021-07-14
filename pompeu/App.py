@@ -170,7 +170,6 @@ class Root(object):
         jPauta["id"] = "songs/" + n_id + ".wav"
 
         created = createSong(jPauta)
-
         if not created[0]:
             return json.dumps({"result": "failure", "erro": "erro"})
 

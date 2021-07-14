@@ -1,13 +1,113 @@
-function addTableLines(){
-    var lines = ''
-    for(i = 0; i < 3; i++){
-        lines += "<tr> <th scope='row' id='select-left'><select class='form-select form-select-sm genSelect'><option class='genOption' selected>Selecionar</option><option class='genOption' value='1'>Batatas</option><option class='genOption' value='2'>Tomates</option><option class='genOption' value='3'>Cebolas</option></select></th>";
-        for(l = 0; l < 3; l++){
-            lines += "<td id = 'tablecell'><input style='margin: 0px;' type='checkbox' class='checkSong'><input style='margin: 0px;' type='checkbox' class='checkSong'><input style='margin: 0px;' type='checkbox' class='checkSong'><input style='margin: 0px;' type='checkbox' class='checkSong'><input style='margin: 0px;' type='checkbox' class='checkSong'></td>";
-        }
-        lines += "<td id='select-right'><select class='form-select form-select-sm genSelect'><option class='genOption' selected>Selecionar</option><option class='genOption' value='1'>Vinho</option><option class='genOption' value='2'>Vinagre</option><option class='genOption' value='3'>Azeite</option></select></td></tr>";
+function generateLines()
+{
+    const LINES = 10;
+    const NUM_CELLS = 5;
+    const CHECKBOXS_PER_CELL = 5;
+    const EFFECTS = ["fadein","reverse","delay","fadeout"];
+
+    var table = document.getElementById("table");
+
+    var thead = document.createElement("thead");
+    var tr1 = document.createElement("tr");
+    tr1.id = "tablehead";
+    var excerto = document.createElement("th");
+    excerto.classList.add("text-center");
+    excerto.scope = "col";
+    excerto.innerHTML = "Excerto";
+
+    tr1.appendChild(excerto);
+
+    for(var i = 0;i < NUM_CELLS; i++)
+    {
+        var th = document.createElement("th");
+        th.scope = "col";
+        th.innerHTML = (i + 1);
+        tr1.appendChild(th);
     }
-    document.getElementById('table-body').insertAdjacentHTML('afterbegin', lines);
+
+    var efeito = document.createElement("th");
+    efeito.classList.add("text-center");
+    efeito.scope = "col";
+    efeito.innerHTML = "Efeito";
+    tr1.appendChild(efeito);
+    thead.appendChild(tr1);
+    table.appendChild(thead);
+    var tbody = document.createElement("tbody");
+    tbody.id = "tableBody";
+
+
+    for(var i = 0; i < LINES; i++)
+    {
+        var tr = document.createElement("tr");
+        var th = document.createElement("th");
+        th.id = "select-left";
+        th.scope = "row";
+
+        var select = document.createElement("select");
+        select.classList.add("form-select","form-select-sm","genSelect");
+        var opSelecionar = document.createElement("option");
+        opSelecionar.text = "Selecionar";
+        opSelecionar.selected = true;
+        opSelecionar.classList.add("genOption");
+        select.appendChild(opSelecionar);
+
+        for(var j = 0; j < window.samples.length;j++)
+        {
+            var op = document.createElement("option");
+            op.text = window.samples[j][1];
+            op.value = j;
+            op.classList.add("genOption");
+            select.appendChild(op);
+        }
+
+        th.appendChild(select);
+        tr.appendChild(th);
+
+        for(var j = 0; j < NUM_CELLS; j++)
+        {
+            var td = document.createElement("td");
+            td.id = "tablecell";
+
+            for(var z = 0; z < CHECKBOXS_PER_CELL; z++)
+            {
+                var input = document.createElement("input");
+                input.classList.add("checkSong");
+                input.type = "checkbox";
+                input.style.margin = "2px";
+                td.appendChild(input);
+            }
+
+            tr.appendChild(td);
+        }
+
+        var efeitos = document.createElement("td");
+        efeitos.id = "select-right";
+
+        var selectEfeitos = document.createElement("select");
+        selectEfeitos.classList.add("form-select","form-select-sm","genSelect");
+        
+        var opSelecionar = document.createElement("option");
+        opSelecionar.classList.add("genOption");
+        opSelecionar.text = "Selecionar";
+        opSelecionar.selected = true;
+        
+        selectEfeitos.appendChild(opSelecionar);
+
+        for(var j = 0; j < EFFECTS.length; j++)
+        {
+            var op = document.createElement("option");
+            op.classList.add("genOption");
+            op.text = EFFECTS[j];
+            op.value = EFFECTS[j];
+            selectEfeitos.appendChild(op);
+        }
+
+        efeitos.appendChild(selectEfeitos);
+        tr.appendChild(efeitos);
+        tbody.appendChild(tr);
+    }
+
+    table.appendChild(tbody);
 }
 
 var samples = undefined;
@@ -18,27 +118,7 @@ async function getSampleList()
     const myJson = await response.json(); 
 
     window.samples = myJson;
-    setSamples();
-}
-
-function setSamples()
-{
-    var trs = document.getElementById("tableBody").children;
-
-    for(i = 0; i < trs.length; i++)
-    {
-        var select = trs[i].children[0].children[0];
-
-        for(j = 0; j < window.samples.length; j++)
-        {
-            var op = document.createElement("option");
-            op.text = window.samples[j][1];
-            op.value = j;
-            op.classList.add("genOption");
-            select.appendChild(op)
-        }
-    }
-
+    generateLines();
 }
 
 function gerarArray(){
@@ -116,10 +196,23 @@ async function gerar()
     const pauta = {"bpm":bpm,"volume":volume,"mask":mascara,"samples": samples,"effects": effects,"music": col}
     console.log(pauta)
     const json = JSON.stringify(pauta);
-    console.log(json)
+
     const response = await fetch("/put?pauta=" + json + "&nome=" + nome + "&autor=" + autor,{method: "POST"});
     const myJson = await response.json();
-    console.log(myJson)
+
+    if(myJson["result"] == "sucesso")
+    {
+        var ask = confirm("Musica gerada");
+
+        if(ask)
+        {
+            window.location.href = "/index";
+        }
+    }
+    else
+    {
+        confirm("Ocorreu um erro na geracao da musica");
+    }
     
 }
 
